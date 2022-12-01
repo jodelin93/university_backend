@@ -7,9 +7,11 @@ import { Person } from './entities/person.entity';
 
 @Injectable()
 export class PersonsService {
-  constructor(@InjectRepository(Person) personRepo: Repository<Person>) {}
-  create(createPersonDto: CreatePersonDto) {
-    return 'This action adds a new person';
+  constructor(
+    @InjectRepository(Person) private personRepo: Repository<Person>,
+  ) {}
+  async create(createPersonDto: CreatePersonDto) {
+    return await this.personRepo.save(createPersonDto);
   }
 
   findAll() {

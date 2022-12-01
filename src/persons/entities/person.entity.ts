@@ -1,4 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Employee } from './../../employees/entities/employee.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+
+export enum Sexe {
+  MASCULIN = 'masculin',
+  FEMININ = 'feminin',
+  AUTRES = 'autres',
+}
 
 @Entity()
 export class Person {
@@ -11,7 +25,7 @@ export class Person {
   @Column({ length: 255 })
   prenom: string;
 
-  @Column()
+  @Column({ type: 'enum', enum: Sexe, default: Sexe.MASCULIN })
   sexe: string;
 
   @Column({ length: 255, unique: true, nullable: true })
@@ -22,4 +36,16 @@ export class Person {
 
   @Column()
   date_naissance: Date;
+
+  @CreateDateColumn({ type: 'timestamp', default: () => '(CURRENT_DATE)' })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => '(CURRENT_DATE)',
+    nullable: true,
+  })
+  updatedAt: Date;
+  @OneToOne(() => Employee, (employee) => employee.person)
+  employee: Employee;
 }
