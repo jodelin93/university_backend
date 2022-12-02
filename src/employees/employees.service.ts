@@ -43,6 +43,7 @@ export class EmployeesService {
 
   async findOne(id: number) {
     const emp = await this.empRepo.findOne({ where: { id }, relations: ['person'] })
+    
    
     if (!emp) {
       throw new BadRequestException(`employee with id ${id} does not found`)
