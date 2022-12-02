@@ -1,9 +1,9 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { EmployeesModule } from './employees/employees.module';
-import { PersonsModule } from './persons/persons.module';
 
 @Module({
   imports: [

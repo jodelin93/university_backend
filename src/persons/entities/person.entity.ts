@@ -46,6 +46,6 @@ export class Person {
     nullable: true,
   })
   updatedAt: Date;
-  @OneToOne(() => Employee, (employee) => employee.person)
+  @OneToOne(() => Employee, (employee) => employee.person,{cascade:['remove','insert','update']})
   employee: Employee;
 }

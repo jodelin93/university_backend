@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePersonDto } from './dto/create-person.dto';
@@ -18,15 +18,21 @@ export class PersonsService {
     return `This action returns all persons`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} person`;
+  async findOne(id: number) {
+    return await this.personRepo.findOneBy({id});
   }
 
-  update(id: number, updatePersonDto: UpdatePersonDto) {
-    return `This action updates a #${id} person`;
+  async update(id: number, updatePersonDto: UpdatePersonDto) {
+    const onePerson = await this.findOne(id)
+    if (!onePerson) {
+      throw new BadRequestException(`person with id ${id} does not found`)
+    }
+    const person=await this.personRepo.preload({ id, ...updatePersonDto })
+    return await this.personRepo.save(person)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} person`;
+  async remove(id: number) {
+    const person= await this.findOne(id)
+    return await this.personRepo.remove(person)
   }
 }

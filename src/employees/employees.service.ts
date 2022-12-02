@@ -1,5 +1,5 @@
 import { PersonsService } from './../persons/persons.service';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,28 +13,39 @@ export class EmployeesService {
     @InjectRepository(Employee) private empRepo: Repository<Employee>,
   ) {}
   async create(createEmployeeDto: CreateEmployeeDto) {
-    const employee = await this.personService.create(createEmployeeDto);
-    console.log(createEmployeeDto);
-
-    return await this.empRepo.save({
-      ...createEmployeeDto,
-      personId: employee.id,
-    });
+    const emp = this.empRepo.create(createEmployeeDto)
+    const person = await this.personService.create(createEmployeeDto)
+    emp.person = person;
+    await this.empRepo.save(emp);
+    return{message:`employee with id ${person.id} successfully saved` }
   }
 
-  findAll() {
-    return `This action returns all employees`;
+  async findAll( skip:number,take:number) {
+    return await this.empRepo.find({relations:['person'],skip,take})
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} employee`;
+  async findOne(id: number) {
+    const emp = await this.empRepo.findOne({ where: { id }, relations: ['person'] })
+   
+    if (!emp) {
+      throw new BadRequestException(`employee with id ${id} does not found`)
+    }
+    return emp;
   }
 
-  update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
-    return `This action updates a #${id} employee`;
+  async update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
+    const oneEmployee = await this.findOne(id)
+    if (!oneEmployee) {
+      throw new BadRequestException(`employee with id ${id} does not found`)
+    }
+    const emp = await this.empRepo.preload({id,...updateEmployeeDto })
+    await this.personService.update(id, updateEmployeeDto)
+    this.empRepo.save(emp)
+      return `employee with id ${id} where updated `
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} employee`;
+  async remove(id: number) {
+    const employee=await this.findOne(id)
+    await this.empRepo.remove(employee)
+    return await this.personService.remove(id)
   }
 }
