@@ -19,7 +19,11 @@ export class PersonsService {
   }
 
   async findOne(id: number) {
-    return await this.personRepo.findOneBy({id});
+    const person=await this.personRepo.findOneBy({id})
+    if (!person) {
+      throw new BadRequestException(`employee with id ${id} does not found`)
+    }
+    return person ;
   }
 
   async update(id: number, updatePersonDto: UpdatePersonDto) {
