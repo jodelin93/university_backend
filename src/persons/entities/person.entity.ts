@@ -37,14 +37,10 @@ export class Person {
   @Column()
   date_naissance: Date;
 
-  @CreateDateColumn({ type: 'timestamp', default: () => '(CURRENT_DATE)' })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => '(CURRENT_DATE)',
-    nullable: true,
-  })
+  @UpdateDateColumn()
   updatedAt: Date;
   @OneToOne(() => Employee, (employee) => employee.person,{cascade:['remove','insert','update']})
   employee: Employee;

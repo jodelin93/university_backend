@@ -12,7 +12,7 @@ export class Employee {
 
   @Column({ length: 255 })
   fonction: string;
-  @Column({ type: 'timestamp', default: () => '(CURRENT_DATE)' })
+  @Column()
   date_embauche: Date;
 
   @Column()

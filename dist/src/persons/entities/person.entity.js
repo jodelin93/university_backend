@@ -49,15 +49,11 @@ __decorate([
     __metadata("design:type", Date)
 ], Person.prototype, "date_naissance", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', default: () => '(CURRENT_DATE)' }),
+    (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], Person.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({
-        type: 'timestamp',
-        default: () => '(CURRENT_DATE)',
-        nullable: true,
-    }),
+    (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)
 ], Person.prototype, "updatedAt", void 0);
 __decorate([

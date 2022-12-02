@@ -13,7 +13,7 @@ async function bootstrap() {
         forbidUnknownValues: true,
     }));
     app.useGlobalFilters(new typeorm_exception_1.TypeOrmFilter());
-    await app.listen(5000);
+    await app.listen(process.env.PORT || 5000);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
