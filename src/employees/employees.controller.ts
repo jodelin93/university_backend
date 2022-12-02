@@ -23,19 +23,13 @@ export class EmployeesController {
   }
 
   @Get()
-  findAll(@Query() query: any) {
-    let skip = 0;
-    let take = 10;
+  findAll(@Query('page') page) {
     
-    if (query) {
-      skip = query.skip;
-      take=query.take
-    }
-    return this.employeesService.findAll(skip,take);
+    return this.employeesService.findAll(page);
   }
 
   @Get(':id')
-  findOne( @Param('id',ParseIntPipe)  id: string) {
+  findOne( @Param('id',ParseIntPipe,)  id: string) {
     return this.employeesService.findOne(+id);
   }
 

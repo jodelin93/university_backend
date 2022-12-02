@@ -20,8 +20,25 @@ export class EmployeesService {
     return{message:`employee with id ${person.id} successfully saved` }
   }
 
-  async findAll( skip:number,take:number) {
-    return await this.empRepo.find({relations:['person'],skip,take})
+  async findAll(page=1) {
+    const take = 15;
+    if (page === 0 || !page) {
+      page = 1;
+    }
+   
+    const [data, total] = await this.empRepo.findAndCount({ relations: ['person'], skip: (page - 1) * take, take })
+    
+    return {
+      data,
+      meta: {
+        total,
+        CurrentPage: page,
+        nextPage: page + 1,
+        previousPage: Math.ceil(page - 1),
+        firstPaginate: 1,
+        lastPaginate: Math.ceil(total / take),
+      },
+    };
   }
 
   async findOne(id: number) {
