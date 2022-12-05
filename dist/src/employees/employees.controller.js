@@ -26,16 +26,16 @@ let EmployeesController = class EmployeesController {
         return this.employeesService.create(createEmployeeDto);
     }
     findAll(page) {
-        return this.employeesService.findAll(page);
+        return this.employeesService.findAll(page, ['person']);
     }
     findOne(id) {
-        return this.employeesService.findOne(+id);
+        return this.employeesService.findOne({ id }, ['person']);
     }
     update(id, updateEmployeeDto) {
-        return this.employeesService.update(+id, updateEmployeeDto);
+        return this.employeesService.update(id, updateEmployeeDto);
     }
     remove(id) {
-        return this.employeesService.remove(+id);
+        return this.employeesService.remove(id);
     }
 };
 __decorate([
@@ -69,14 +69,14 @@ __decorate([
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_employee_dto_1.UpdateEmployeeDto]),
+    __metadata("design:paramtypes", [Number, update_employee_dto_1.UpdateEmployeeDto]),
     __metadata("design:returntype", void 0)
 ], EmployeesController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], EmployeesController.prototype, "remove", null);
 EmployeesController = __decorate([

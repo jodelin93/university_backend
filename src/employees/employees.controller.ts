@@ -30,27 +30,26 @@ export class EmployeesController {
   @Get()
   @ApiResponse({type:CreateEmployeeDto, description: 'Operation pour recupperer toutes les personnes', isArray:true})
   findAll(@Query('page') page:number) {
-    
-    return this.employeesService.findAll(page);
+    return this.employeesService.findAll(page,['person']);
   }
 
   @Get(':id')
   @ApiResponse({ type: CreateEmployeeDto })
   findOne( @Param('id',ParseIntPipe,)  id: string) {
-    return this.employeesService.findOne(+id);
+    return this.employeesService.findOne({id},['person']);
   }
 
   @Patch(':id')
   @ApiResponse({ type: CreateEmployeeDto })
   update(
-    @Param('id',ParseIntPipe) id: string,
+    @Param('id',ParseIntPipe) id: number,
     @Body() updateEmployeeDto: UpdateEmployeeDto,
   ) {
-    return this.employeesService.update(+id, updateEmployeeDto);
+    return this.employeesService.update(id, updateEmployeeDto);
   }
 
   @Delete(':id',)
-  remove(@Param('id',ParseIntPipe) id: string) {
-    return this.employeesService.remove(+id);
+  remove(@Param('id',ParseIntPipe) id: number) {
+    return this.employeesService.remove(id);
   }
 }

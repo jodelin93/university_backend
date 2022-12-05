@@ -5,13 +5,14 @@ import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Employee } from './entities/employee.entity';
 import { Repository } from 'typeorm';
+import { AbstracService} from './../commons/abstract.service'
 
 @Injectable()
-export class EmployeesService {
+export class EmployeesService extends AbstracService {
   constructor(
     private personService: PersonsService,
     @InjectRepository(Employee) private empRepo: Repository<Employee>,
-  ) {}
+  ) { super(empRepo)}
   async create(createEmployeeDto: CreateEmployeeDto) {
     const emp = this.empRepo.create(createEmployeeDto)
     const person = await this.personService.create(createEmployeeDto)
@@ -20,41 +21,12 @@ export class EmployeesService {
     return{message:`employee with id ${person.id} successfully saved` }
   }
 
-  async findAll(page=1) {
-    const take = 15;
-    if (page === 0 || !page) {
-      page = 1;
-    }
-   
-    const [data, total] = await this.empRepo.findAndCount({ relations: ['person'], skip: (page - 1) * take, take })
-    
-    return {
-      data,
-      meta: {
-        total,
-        CurrentPage: page,
-        nextPage: page + 1,
-        previousPage: Math.ceil(page - 1),
-        firstPaginate: 1,
-        lastPaginate: Math.ceil(total / take),
-      },
-    };
-  }
 
-  async findOne(id: number) {
-    const emp = await this.empRepo.findOne({ where: { id }, relations: ['person'] })
-    
-   
-    if (!emp) {
-      throw new BadRequestException(`employee with id ${id} does not found`)
-    }
-    return emp;
-  }
 
   async update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
     const oneEmployee = await this.findOne(id)
     if (!oneEmployee) {
-      throw new BadRequestException(`employee with id ${id} does not found`)
+      throw new BadRequestException(`data not found`)
     }
     const emp = await this.empRepo.preload({id,...updateEmployeeDto })
     await this.personService.update(id, updateEmployeeDto)

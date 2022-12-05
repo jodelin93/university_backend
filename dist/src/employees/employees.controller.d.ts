@@ -7,18 +7,8 @@ export declare class EmployeesController {
     create(createEmployeeDto: CreateEmployeeDto): Promise<{
         message: string;
     }>;
-    findAll(page: number): Promise<{
-        data: import("./entities/employee.entity").Employee[];
-        meta: {
-            total: number;
-            CurrentPage: number;
-            nextPage: number;
-            previousPage: number;
-            firstPaginate: number;
-            lastPaginate: number;
-        };
-    }>;
-    findOne(id: string): Promise<import("./entities/employee.entity").Employee>;
-    update(id: string, updateEmployeeDto: UpdateEmployeeDto): Promise<string>;
-    remove(id: string): Promise<import("../persons/entities/person.entity").Person>;
+    findAll(page: number): Promise<import("../commons/paginate-result.interface").PaginateResult>;
+    findOne(id: string): Promise<any>;
+    update(id: number, updateEmployeeDto: UpdateEmployeeDto): Promise<string>;
+    remove(id: number): Promise<import("../persons/entities/person.entity").Person>;
 }

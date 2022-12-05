@@ -18,8 +18,10 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const employee_entity_1 = require("./entities/employee.entity");
 const typeorm_2 = require("typeorm");
-let EmployeesService = class EmployeesService {
+const abstract_service_1 = require("./../commons/abstract.service");
+let EmployeesService = class EmployeesService extends abstract_service_1.AbstracService {
     constructor(personService, empRepo) {
+        super(empRepo);
         this.personService = personService;
         this.empRepo = empRepo;
     }
@@ -30,35 +32,10 @@ let EmployeesService = class EmployeesService {
         await this.empRepo.save(emp);
         return { message: `employee with id ${person.id} successfully saved` };
     }
-    async findAll(page = 1) {
-        const take = 15;
-        if (page === 0 || !page) {
-            page = 1;
-        }
-        const [data, total] = await this.empRepo.findAndCount({ relations: ['person'], skip: (page - 1) * take, take });
-        return {
-            data,
-            meta: {
-                total,
-                CurrentPage: page,
-                nextPage: page + 1,
-                previousPage: Math.ceil(page - 1),
-                firstPaginate: 1,
-                lastPaginate: Math.ceil(total / take),
-            },
-        };
-    }
-    async findOne(id) {
-        const emp = await this.empRepo.findOne({ where: { id }, relations: ['person'] });
-        if (!emp) {
-            throw new common_1.BadRequestException(`employee with id ${id} does not found`);
-        }
-        return emp;
-    }
     async update(id, updateEmployeeDto) {
         const oneEmployee = await this.findOne(id);
         if (!oneEmployee) {
-            throw new common_1.BadRequestException(`employee with id ${id} does not found`);
+            throw new common_1.BadRequestException(`data not found`);
         }
         const emp = await this.empRepo.preload(Object.assign({ id }, updateEmployeeDto));
         await this.personService.update(id, updateEmployeeDto);
