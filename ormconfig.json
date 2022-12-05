@@ -1,0 +1,15 @@
+
+    {
+    "driver": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "jodelin",
+    "database": "university_backend",
+    "entities": ["dist/src/**/*.js"],
+    "migrations": ["dist/src/migrations/**/*.js"],
+    "autoLoadEntities": true,
+    "cli": { 
+   "migrationsDir": "migration" 
+    }
+}
