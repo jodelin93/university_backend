@@ -12,8 +12,12 @@ export class Employee {
 
   @Column({ length: 255 })
   fonction: string;
+
   @Column()
   date_embauche: Date;
+
+  @Column('double',{nullable:true})
+  salaire: number;
 
   @Column()
   personId: number;

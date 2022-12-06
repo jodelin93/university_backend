@@ -12,7 +12,8 @@ import {
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
-import { ApiBadRequestResponse, ApiBody, ApiForbiddenResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiCreatedResponse, ApiForbiddenResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+
 @ApiBadRequestResponse({ status: 400, description: 'bad request response' })
 @ApiForbiddenResponse({ description: 'Forbidden' })
 @ApiTags('Employees')
@@ -21,13 +22,14 @@ export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Post()
-  @ApiBody({ type: CreateEmployeeDto, description: 'Operation pour enregistrer une personne' })
-  @ApiResponse({ type:CreateEmployeeDto })
+  @ApiOperation({ description: "this is the endpoint for Creating  an employee" })
+  @ApiCreatedResponse({ description: 'The record has been successfully created.',type:CreateEmployeeDto})
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
     return this.employeesService.create(createEmployeeDto);
   }
 
   @Get()
+  @ApiOperation({ description: "this is the endpoint for retrieving all the employees" })
   @ApiResponse({type:CreateEmployeeDto, description: 'Operation pour recupperer toutes les personnes', isArray:true})
   findAll(@Query('page') page:number) {
     return this.employeesService.findAll(page,['person']);
@@ -35,12 +37,14 @@ export class EmployeesController {
 
   @Get(':id')
   @ApiResponse({ type: CreateEmployeeDto })
+  @ApiOperation({ description: "this is the endpoint for retrieving  one employee" })
   findOne( @Param('id',ParseIntPipe,)  id: string) {
     return this.employeesService.findOne({id},['person']);
   }
 
   @Patch(':id')
-  @ApiResponse({ type: CreateEmployeeDto })
+  @ApiCreatedResponse({ description: 'The record has been successfully updated.',type:CreateEmployeeDto})
+  @ApiOperation({ description: "this is the endpoint for updating  an employee" })
   update(
     @Param('id',ParseIntPipe) id: number,
     @Body() updateEmployeeDto: UpdateEmployeeDto,
@@ -49,7 +53,10 @@ export class EmployeesController {
   }
 
   @Delete(':id',)
+  @ApiOperation({ description: "this is the endpoint for deleting  one employee" })
   remove(@Param('id',ParseIntPipe) id: number) {
     return this.employeesService.remove(id);
   }
+
+
 }

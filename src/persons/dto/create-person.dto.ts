@@ -14,10 +14,7 @@ export class CreatePersonDto {
   prenom: string;
 
   @IsNotEmpty()
-  @ApiProperty({
-    description: 'sexe de la personne doit masculin ou feminin ou autres ',
-    default: 'masculin',
-  })
+  @ApiProperty({ enum: ['masculin', 'feminin', 'autres'],description:'sexe de la personne'})
   sexe: string;
 
   @IsEmail()

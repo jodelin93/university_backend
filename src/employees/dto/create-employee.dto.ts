@@ -8,7 +8,10 @@ export class CreateEmployeeDto extends CreatePersonDto {
   fonction: string;
 
   @IsNotEmpty()
-  
   @ApiPropertyOptional({description:'fonction de l\'employe ',type:Date}) 
   date_embauche: string;
+
+  @IsNotEmpty()
+  @ApiPropertyOptional({description:'salaire de l\'employe '}) 
+  salaire?: number;
 }
