@@ -25,7 +25,7 @@ let EmployeesController = class EmployeesController {
     create(createEmployeeDto) {
         return this.employeesService.create(createEmployeeDto);
     }
-    findAll(page) {
+    findAll(page = 1) {
         return this.employeesService.findAll(page, ['person']);
     }
     findOne(uuid) {
@@ -53,7 +53,7 @@ __decorate([
     (0, swagger_1.ApiResponse)({ type: create_employee_dto_1.CreateEmployeeDto, description: 'Operation pour recupperer toutes les personnes', isArray: true }),
     __param(0, (0, common_1.Query)('page')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], EmployeesController.prototype, "findAll", null);
 __decorate([

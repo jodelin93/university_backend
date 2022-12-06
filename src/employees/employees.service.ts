@@ -19,8 +19,7 @@ export class EmployeesService extends AbstracService {
     const emp = this.empRepo.create(createEmployeeDto)
     const person = await this.personService.create(createEmployeeDto)
     emp.person = person;
-    await this.empRepo.save(emp);
-    return this.findOneEmployee(person.uuid,['person'])
+    return await this.empRepo.save(emp);
   }
 
   async findOneEmployee(uuid: string, relations: any[] = []): Promise<any> {

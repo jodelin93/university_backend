@@ -30,7 +30,7 @@ export class EmployeesController {
   @Get()
   @ApiOperation({ description: "this is the endpoint for retrieving all the employees" })
   @ApiResponse({type:CreateEmployeeDto, description: 'Operation pour recupperer toutes les personnes', isArray:true})
-  findAll(@Query('page') page:number) {
+  findAll(@Query('page') page=1) {
     return this.employeesService.findAll(page,['person']);
   }
 
