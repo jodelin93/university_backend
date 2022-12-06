@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  ParseIntPipe,
   Query,
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
@@ -38,24 +37,24 @@ export class EmployeesController {
   @Get(':id')
   @ApiResponse({ type: CreateEmployeeDto })
   @ApiOperation({ description: "this is the endpoint for retrieving  one employee" })
-  findOne( @Param('id',ParseIntPipe,)  id: string) {
-    return this.employeesService.findOne({id},['person']);
+  findOne( @Param('id',)  uuid: string) {
+    return this.employeesService.findOneEmployee(uuid,['person']);
   }
 
   @Patch(':id')
   @ApiCreatedResponse({ description: 'The record has been successfully updated.',type:CreateEmployeeDto})
   @ApiOperation({ description: "this is the endpoint for updating  an employee" })
   update(
-    @Param('id',ParseIntPipe) id: number,
+    @Param('id') uuid: string,
     @Body() updateEmployeeDto: UpdateEmployeeDto,
   ) {
-    return this.employeesService.update(id, updateEmployeeDto);
+    return this.employeesService.updateOneEmployee(uuid, updateEmployeeDto);
   }
 
   @Delete(':id',)
   @ApiOperation({ description: "this is the endpoint for deleting  one employee" })
-  remove(@Param('id',ParseIntPipe) id: number) {
-    return this.employeesService.remove(id);
+  remove(@Param('id') uuid: string) {
+    return this.employeesService.removeOneEmployee(uuid);
   }
 
 

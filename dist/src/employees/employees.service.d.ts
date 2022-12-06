@@ -8,9 +8,8 @@ export declare class EmployeesService extends AbstracService {
     private personService;
     private empRepo;
     constructor(personService: PersonsService, empRepo: Repository<Employee>);
-    create(createEmployeeDto: CreateEmployeeDto): Promise<{
-        message: string;
-    }>;
-    update(id: number, updateEmployeeDto: UpdateEmployeeDto): Promise<string>;
-    remove(id: number): Promise<import("../persons/entities/person.entity").Person>;
+    create(createEmployeeDto: CreateEmployeeDto): Promise<any>;
+    findOneEmployee(uuid: string, relations?: any[]): Promise<any>;
+    updateOneEmployee(uuid: string, updateEmployeeDto: UpdateEmployeeDto): Promise<Employee>;
+    removeOneEmployee(uuid: string): Promise<any>;
 }

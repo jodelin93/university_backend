@@ -27,7 +27,7 @@ __decorate([
     __metadata("design:type", Date)
 ], Employee.prototype, "date_embauche", void 0);
 __decorate([
-    (0, typeorm_1.Column)('double', { nullable: true }),
+    (0, typeorm_1.Column)("double", { nullable: true }),
     __metadata("design:type", Number)
 ], Employee.prototype, "salaire", void 0);
 __decorate([

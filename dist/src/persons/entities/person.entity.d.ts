@@ -6,6 +6,7 @@ export declare enum Sexe {
 }
 export declare class Person {
     id: number;
+    uuid: string;
     nom: string;
     prenom: string;
     sexe: string;

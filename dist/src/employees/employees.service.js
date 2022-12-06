@@ -30,22 +30,25 @@ let EmployeesService = class EmployeesService extends abstract_service_1.Abstrac
         const person = await this.personService.create(createEmployeeDto);
         emp.person = person;
         await this.empRepo.save(emp);
-        return { message: `employee with id ${person.id} successfully saved` };
+        return this.findOneEmployee(person.uuid, ['person']);
     }
-    async update(id, updateEmployeeDto) {
-        const oneEmployee = await this.findOne(id);
-        if (!oneEmployee) {
-            throw new common_1.BadRequestException(`data not found`);
-        }
+    async findOneEmployee(uuid, relations = []) {
+        const emp = await this.personService.findOne(uuid);
+        return super.findOne({ id: emp.id }, relations);
+    }
+    async updateOneEmployee(uuid, updateEmployeeDto) {
+        const oneEmployee = await this.findOneEmployee(uuid);
+        const id = oneEmployee.id;
         const emp = await this.empRepo.preload(Object.assign({ id }, updateEmployeeDto));
-        await this.personService.update(id, updateEmployeeDto);
-        this.empRepo.save(emp);
-        return `employee with id ${id} where updated `;
+        await this.personService.update(uuid, updateEmployeeDto);
+        const updateEmp = await this.empRepo.save(emp);
+        return await this.empRepo.findOne({ where: { id: updateEmp.id }, relations: ['person'] });
     }
-    async remove(id) {
-        const employee = await this.findOne(id);
+    async removeOneEmployee(uuid) {
+        const employee = await this.findOneEmployee(uuid, ['person']);
         await this.empRepo.remove(employee);
-        return await this.personService.remove(id);
+        await this.personService.remove(employee.uuid);
+        return employee;
     }
 };
 EmployeesService = __decorate([

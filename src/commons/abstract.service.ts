@@ -38,10 +38,12 @@ export abstract class AbstracService {
         };
     }
     
-    async findOne(
+  async findOne(
+     
         condition:any,
         relations: any[] = [],
-      ): Promise<any> {
+  ): Promise<any> {
+    
         const data = await this.repository.findOne({
           where: condition,
           relations,

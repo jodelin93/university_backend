@@ -28,14 +28,14 @@ let EmployeesController = class EmployeesController {
     findAll(page) {
         return this.employeesService.findAll(page, ['person']);
     }
-    findOne(id) {
-        return this.employeesService.findOne({ id }, ['person']);
+    findOne(uuid) {
+        return this.employeesService.findOneEmployee(uuid, ['person']);
     }
-    update(id, updateEmployeeDto) {
-        return this.employeesService.update(id, updateEmployeeDto);
+    update(uuid, updateEmployeeDto) {
+        return this.employeesService.updateOneEmployee(uuid, updateEmployeeDto);
     }
-    remove(id) {
-        return this.employeesService.remove(id);
+    remove(uuid) {
+        return this.employeesService.removeOneEmployee(uuid);
     }
 };
 __decorate([
@@ -60,7 +60,7 @@ __decorate([
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiResponse)({ type: create_employee_dto_1.CreateEmployeeDto }),
     (0, swagger_1.ApiOperation)({ description: "this is the endpoint for retrieving  one employee" }),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
@@ -69,18 +69,18 @@ __decorate([
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiCreatedResponse)({ description: 'The record has been successfully updated.', type: create_employee_dto_1.CreateEmployeeDto }),
     (0, swagger_1.ApiOperation)({ description: "this is the endpoint for updating  an employee" }),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, update_employee_dto_1.UpdateEmployeeDto]),
+    __metadata("design:paramtypes", [String, update_employee_dto_1.UpdateEmployeeDto]),
     __metadata("design:returntype", void 0)
 ], EmployeesController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({ description: "this is the endpoint for deleting  one employee" }),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], EmployeesController.prototype, "remove", null);
 EmployeesController = __decorate([

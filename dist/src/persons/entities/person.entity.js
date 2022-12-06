@@ -25,6 +25,11 @@ __decorate([
     __metadata("design:type", Number)
 ], Person.prototype, "id", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ unique: true }),
+    (0, typeorm_1.Generated)("uuid"),
+    __metadata("design:type", String)
+], Person.prototype, "uuid", void 0);
+__decorate([
     (0, typeorm_1.Column)({ length: 255 }),
     __metadata("design:type", String)
 ], Person.prototype, "nom", void 0);

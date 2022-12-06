@@ -7,16 +7,16 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 @Entity()
-export class Employee {
+export class Employee  {
+
   @PrimaryGeneratedColumn() id: number;
 
   @Column({ length: 255 })
   fonction: string;
-
   @Column()
   date_embauche: Date;
 
-  @Column('double',{nullable:true})
+  @Column("double", { nullable: true })
   salaire: number;
 
   @Column()

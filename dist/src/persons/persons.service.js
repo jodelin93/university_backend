@@ -27,24 +27,25 @@ let PersonsService = class PersonsService {
     findAll() {
         return `This action returns all persons`;
     }
-    async findOne(id) {
-        const person = await this.personRepo.findOneBy({ id });
+    async findOne(uuid) {
+        const person = await this.personRepo.findOne({ where: { uuid } });
         if (!person) {
-            throw new common_1.BadRequestException(`employee with id ${id} does not found`);
+            throw new common_1.BadRequestException(`employee with id ${uuid} does not foundddd`);
         }
         return person;
     }
-    async update(id, updatePersonDto) {
-        const onePerson = await this.findOne(id);
+    async update(uuid, updatePersonDto) {
+        const onePerson = await this.findOne(uuid);
         if (!onePerson) {
-            throw new common_1.BadRequestException(`person with id ${id} does not found`);
+            throw new common_1.BadRequestException(`person with id ${uuid} does not foundddd`);
         }
+        const id = onePerson.id;
         const person = await this.personRepo.preload(Object.assign({ id }, updatePersonDto));
         return await this.personRepo.save(person);
     }
-    async remove(id) {
-        const person = await this.findOne(id);
-        return await this.personRepo.remove(person);
+    async remove(uuid) {
+        const person = await this.findOne(uuid);
+        await this.personRepo.remove(person);
     }
 };
 PersonsService = __decorate([

@@ -3,7 +3,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Generated,
   OneToOne,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -18,6 +20,10 @@ export enum Sexe {
 export class Person {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({unique:true})
+  @Generated("uuid")
+  uuid: string;
 
   @Column({ length: 255 })
   nom: string;

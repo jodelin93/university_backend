@@ -18,25 +18,26 @@ export class PersonsService {
     return `This action returns all persons`;
   }
 
-  async findOne(id: number) {
-    const person=await this.personRepo.findOneBy({id})
+  async findOne(uuid: string) {
+    const person = await this.personRepo.findOne({ where: { uuid } })
     if (!person) {
-      throw new BadRequestException(`employee with id ${id} does not found`)
+      throw new BadRequestException(`employee with id ${uuid} does not foundddd`)
     }
     return person ;
   }
 
-  async update(id: number, updatePersonDto: UpdatePersonDto) {
-    const onePerson = await this.findOne(id)
+  async update(uuid: string, updatePersonDto: UpdatePersonDto) {
+    const onePerson = await this.findOne(uuid)
     if (!onePerson) {
-      throw new BadRequestException(`person with id ${id} does not found`)
+      throw new BadRequestException(`person with id ${uuid} does not foundddd`)
     }
-    const person=await this.personRepo.preload({ id, ...updatePersonDto })
+    const id = onePerson.id;
+    const person=await this.personRepo.preload({id , ...updatePersonDto })
     return await this.personRepo.save(person)
   }
 
-  async remove(id: number) {
-    const person= await this.findOne(id)
-    return await this.personRepo.remove(person)
+  async remove(uuid: string) {
+    const person= await this.findOne(uuid)
+    await this.personRepo.remove(person)
   }
 }
