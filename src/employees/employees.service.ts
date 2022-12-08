@@ -24,7 +24,7 @@ export class EmployeesService extends AbstracService {
 
   async findOneEmployee(uuid: string, relations: any[] = []): Promise<any> {
     const emp = await this.personService.findOne(uuid)
-    return super.findOne({  id: emp.id },relations )
+    return super.findOne({  personId: emp.id },relations )
 }
 
 

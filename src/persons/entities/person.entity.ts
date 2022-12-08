@@ -5,10 +5,10 @@ import {
   Entity,
   Generated,
   OneToOne,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Student } from 'src/students/entities/student.entity';
 
 export enum Sexe {
   MASCULIN = 'masculin',
@@ -48,6 +48,9 @@ export class Person {
 
   @UpdateDateColumn()
   updatedAt: Date;
-  @OneToOne(() => Employee, (employee) => employee.person,{cascade:['remove','insert','update']})
-  employee: Employee;
+  // @OneToOne(() => Employee, (employee) => employee.person,{cascade:['remove','insert','update']})
+  // employee: Employee;
+
+  // @OneToOne(() => Student, (student) => student.person,{cascade:['remove','insert','update']})
+  // student: Student;
 }

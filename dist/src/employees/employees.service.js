@@ -33,7 +33,7 @@ let EmployeesService = class EmployeesService extends abstract_service_1.Abstrac
     }
     async findOneEmployee(uuid, relations = []) {
         const emp = await this.personService.findOne(uuid);
-        return super.findOne({ id: emp.id }, relations);
+        return super.findOne({ personId: emp.id }, relations);
     }
     async updateOneEmployee(uuid, updateEmployeeDto) {
         const oneEmployee = await this.findOneEmployee(uuid);

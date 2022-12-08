@@ -21,7 +21,7 @@ export class PersonsService {
   async findOne(uuid: string) {
     const person = await this.personRepo.findOne({ where: { uuid } })
     if (!person) {
-      throw new BadRequestException(`employee with id ${uuid} does not foundddd`)
+      throw new BadRequestException(`person with id ${uuid} does not foundddd`)
     }
     return person ;
   }

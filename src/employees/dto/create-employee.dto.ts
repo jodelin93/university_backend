@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 import { CreatePersonDto } from 'src/persons/dto/create-person.dto';
 
 export class CreateEmployeeDto extends CreatePersonDto {
@@ -12,6 +12,7 @@ export class CreateEmployeeDto extends CreatePersonDto {
   date_embauche: string;
 
   @IsNotEmpty()
-  @ApiPropertyOptional({description:'salaire de l\'employe '}) 
+  @ApiPropertyOptional({ description: 'salaire de l\'employe ' }) 
+    @IsOptional()
   salaire?: number;
 }

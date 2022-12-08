@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const employees_module_1 = require("./employees/employees.module");
+const students_module_1 = require("./students/students.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -29,6 +30,7 @@ AppModule = __decorate([
                 synchronize: true,
             }),
             employees_module_1.EmployeesModule,
+            students_module_1.StudentsModule,
         ],
         controllers: [],
         providers: [],

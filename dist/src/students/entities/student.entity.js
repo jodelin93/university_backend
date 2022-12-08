@@ -9,59 +9,58 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Person = exports.Sexe = void 0;
+exports.Student = void 0;
+const person_entity_1 = require("../../persons/entities/person.entity");
 const typeorm_1 = require("typeorm");
-var Sexe;
-(function (Sexe) {
-    Sexe["MASCULIN"] = "masculin";
-    Sexe["FEMININ"] = "feminin";
-    Sexe["AUTRES"] = "autres";
-})(Sexe = exports.Sexe || (exports.Sexe = {}));
-let Person = class Person {
+let Student = class Student {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Person.prototype, "id", void 0);
+], Student.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ unique: true }),
-    (0, typeorm_1.Generated)("uuid"),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
-], Person.prototype, "uuid", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ length: 255 }),
-    __metadata("design:type", String)
-], Person.prototype, "nom", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ length: 255 }),
-    __metadata("design:type", String)
-], Person.prototype, "prenom", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'enum', enum: Sexe, default: Sexe.MASCULIN }),
-    __metadata("design:type", String)
-], Person.prototype, "sexe", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ length: 255, unique: true, nullable: true }),
-    __metadata("design:type", String)
-], Person.prototype, "email", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ length: 255, unique: true, nullable: true }),
-    __metadata("design:type", String)
-], Person.prototype, "telephone", void 0);
+], Student.prototype, "code", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", Date)
-], Person.prototype, "date_naissance", void 0);
+    __metadata("design:type", String)
+], Student.prototype, "lieu_naissance", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Student.prototype, "groupe_sanguin", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Student.prototype, "statut_matrimonial", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Student.prototype, "cin", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Student.prototype, "nif", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
-], Person.prototype, "createdAt", void 0);
+], Student.prototype, "createdAt", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)
-], Person.prototype, "updatedAt", void 0);
-Person = __decorate([
+], Student.prototype, "updatedAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Student.prototype, "personId", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => person_entity_1.Person),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", person_entity_1.Person)
+], Student.prototype, "person", void 0);
+Student = __decorate([
     (0, typeorm_1.Entity)()
-], Person);
-exports.Person = Person;
-//# sourceMappingURL=person.entity.js.map
+], Student);
+exports.Student = Student;
+//# sourceMappingURL=student.entity.js.map

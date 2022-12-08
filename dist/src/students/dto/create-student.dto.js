@@ -9,27 +9,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateEmployeeDto = void 0;
+exports.CreateStudentDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 const create_person_dto_1 = require("../../persons/dto/create-person.dto");
-class CreateEmployeeDto extends create_person_dto_1.CreatePersonDto {
+class CreateStudentDto extends create_person_dto_1.CreatePersonDto {
 }
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, swagger_1.ApiProperty)({ description: 'fonction de l\'employe ' }),
+    (0, swagger_1.ApiProperty)({ description: 'lieu naissance de l\'etudiant ' }),
     __metadata("design:type", String)
-], CreateEmployeeDto.prototype, "fonction", void 0);
+], CreateStudentDto.prototype, "lieu_naissance", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, swagger_1.ApiPropertyOptional)({ description: 'fonction de l\'employe ', type: Date }),
+    (0, swagger_1.ApiProperty)({ description: 'groupe_sanguin de l\'etudiant ' }),
     __metadata("design:type", String)
-], CreateEmployeeDto.prototype, "date_embauche", void 0);
+], CreateStudentDto.prototype, "groupe_sanguin", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, swagger_1.ApiPropertyOptional)({ description: 'salaire de l\'employe ' }),
+    (0, swagger_1.ApiProperty)({ description: 'statut matrimonial de l\'etudiant ' }),
+    __metadata("design:type", String)
+], CreateStudentDto.prototype, "statut_matrimonial", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'cin de l\'etudiant ' }),
     (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", Number)
-], CreateEmployeeDto.prototype, "salaire", void 0);
-exports.CreateEmployeeDto = CreateEmployeeDto;
-//# sourceMappingURL=create-employee.dto.js.map
+    __metadata("design:type", String)
+], CreateStudentDto.prototype, "cin", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ description: 'nif de l\'etudiant ' }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateStudentDto.prototype, "nif", void 0);
+exports.CreateStudentDto = CreateStudentDto;
+//# sourceMappingURL=create-student.dto.js.map

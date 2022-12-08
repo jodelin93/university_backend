@@ -1,10 +1,12 @@
 import { Person } from 'src/persons/entities/person.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 @Entity()
 export class Employee  {
@@ -19,10 +21,16 @@ export class Employee  {
   @Column("double", { nullable: true })
   salaire: number;
 
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
   @Column()
   personId: number;
 
-  @OneToOne(() => Person, (person) => person.employee)
+  @OneToOne(() => Person)
   @JoinColumn()
   person: Person;
 }

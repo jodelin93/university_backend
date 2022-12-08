@@ -30,7 +30,7 @@ let PersonsService = class PersonsService {
     async findOne(uuid) {
         const person = await this.personRepo.findOne({ where: { uuid } });
         if (!person) {
-            throw new common_1.BadRequestException(`employee with id ${uuid} does not foundddd`);
+            throw new common_1.BadRequestException(`person with id ${uuid} does not foundddd`);
         }
         return person;
     }

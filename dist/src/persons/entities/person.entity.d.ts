@@ -1,4 +1,3 @@
-import { Employee } from './../../employees/entities/employee.entity';
 export declare enum Sexe {
     MASCULIN = "masculin",
     FEMININ = "feminin",
@@ -15,5 +14,4 @@ export declare class Person {
     date_naissance: Date;
     createdAt: Date;
     updatedAt: Date;
-    employee: Employee;
 }

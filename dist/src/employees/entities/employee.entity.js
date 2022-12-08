@@ -31,11 +31,19 @@ __decorate([
     __metadata("design:type", Number)
 ], Employee.prototype, "salaire", void 0);
 __decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], Employee.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)(),
+    __metadata("design:type", Date)
+], Employee.prototype, "updatedAt", void 0);
+__decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], Employee.prototype, "personId", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => person_entity_1.Person, (person) => person.employee),
+    (0, typeorm_1.OneToOne)(() => person_entity_1.Person),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", person_entity_1.Person)
 ], Employee.prototype, "person", void 0);

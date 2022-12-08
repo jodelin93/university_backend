@@ -4,6 +4,8 @@ export declare class Employee {
     fonction: string;
     date_embauche: Date;
     salaire: number;
+    createdAt: Date;
+    updatedAt: Date;
     personId: number;
     person: Person;
 }
