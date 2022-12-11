@@ -19,14 +19,28 @@ const typeorm_1 = require("@nestjs/typeorm");
 const employee_entity_1 = require("./entities/employee.entity");
 const typeorm_2 = require("typeorm");
 const abstract_service_1 = require("./../commons/abstract.service");
+const faker_1 = require("@faker-js/faker");
 let EmployeesService = class EmployeesService extends abstract_service_1.AbstracService {
     constructor(personService, empRepo) {
         super(empRepo);
         this.personService = personService;
         this.empRepo = empRepo;
     }
+    createRandomUser() {
+        return {
+            nom: faker_1.faker.name.lastName(),
+            prenom: faker_1.faker.name.firstName(),
+            date_naissance: faker_1.faker.date.birthdate().toISOString(),
+            date_embauche: faker_1.faker.date.recent().toISOString(),
+            sexe: 'masculin',
+            telephone: faker_1.faker.phone.number(),
+            email: faker_1.faker.internet.email(),
+            fonction: faker_1.faker.name.jobTitle(),
+            salaire: Number.parseFloat(faker_1.faker.finance.amount())
+        };
+    }
     async create(createEmployeeDto) {
-        const emp = this.empRepo.create(createEmployeeDto);
+        const emp = this.empRepo.create(this.createRandomUser());
         const person = await this.personService.create(createEmployeeDto);
         emp.person = person;
         return await this.empRepo.save(emp);

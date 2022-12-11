@@ -22,7 +22,7 @@ let AbstracService = class AbstracService {
     async find() {
         return await this.repository.find();
     }
-    async findAll(page = 1, relations = []) {
+    async findAll(page, relations = []) {
         const take = 15;
         if (page === 0 || !page) {
             page = 1;

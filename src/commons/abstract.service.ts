@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { PaginateResult } from "./paginate-result.interface";
 
@@ -14,7 +14,7 @@ export abstract class AbstracService {
         return await this.repository.find();
     }
 
-    async findAll(page = 1, relations = []): Promise<PaginateResult> {
+    async findAll(page:number , relations = []): Promise<PaginateResult> {
         const take = 15;
         if (page === 0 || !page) {
           page = 1;

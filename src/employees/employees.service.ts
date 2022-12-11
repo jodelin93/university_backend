@@ -5,7 +5,8 @@ import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Employee } from './entities/employee.entity';
 import { Repository } from 'typeorm';
-import { AbstracService} from './../commons/abstract.service'
+import { AbstracService } from './../commons/abstract.service'
+import { faker } from '@faker-js/faker';
 
 @Injectable()
 export class EmployeesService extends AbstracService {
@@ -13,13 +14,29 @@ export class EmployeesService extends AbstracService {
     private personService: PersonsService,
     @InjectRepository(Employee) private empRepo: Repository<Employee>,
   ) { super(empRepo) }
+
+
+ createRandomUser(): CreateEmployeeDto {
+  return {
+    nom: faker.name.lastName(),
+    prenom: faker.name.firstName(),
+    date_naissance: faker.date.birthdate().toISOString(),
+    date_embauche: faker.date.recent().toISOString(),
+    sexe:'masculin',
+    telephone: faker.phone.number(),
+    email: faker.internet.email(),
+    fonction: faker.name.jobTitle(),
+    salaire: Number.parseFloat(faker.finance.amount())
+  };
+}
   
 
   async create(createEmployeeDto: CreateEmployeeDto) {
-    const emp = this.empRepo.create(createEmployeeDto)
-    const person = await this.personService.create(createEmployeeDto)
-    emp.person = person;
-    return await this.empRepo.save(emp);
+      const emp = this.empRepo.create(this.createRandomUser())
+      const person = await this.personService.create(createEmployeeDto)
+      emp.person = person;
+      return await this.empRepo.save(emp);
+
   }
 
   async findOneEmployee(uuid: string, relations: any[] = []): Promise<any> {

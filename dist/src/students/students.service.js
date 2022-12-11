@@ -19,17 +19,36 @@ const abstract_service_1 = require("../commons/abstract.service");
 const persons_service_1 = require("../persons/persons.service");
 const typeorm_2 = require("typeorm");
 const student_entity_1 = require("./entities/student.entity");
+const faker_1 = require("@faker-js/faker");
 let StudentsService = class StudentsService extends abstract_service_1.AbstracService {
     constructor(personService, studentRepo) {
         super(studentRepo);
         this.personService = personService;
         this.studentRepo = studentRepo;
     }
+    createRandomUser() {
+        return {
+            nom: faker_1.faker.name.lastName(),
+            prenom: faker_1.faker.name.firstName(),
+            date_naissance: faker_1.faker.date.birthdate().toISOString(),
+            lieu_naissance: faker_1.faker.address.cityName(),
+            sexe: 'masculin',
+            nif: faker_1.faker.random.numeric(10),
+            cin: faker_1.faker.random.numeric(15),
+            telephone: faker_1.faker.phone.number(),
+            email: faker_1.faker.internet.email(),
+            groupe_sanguin: 'O+',
+            statut_matrimonial: 'sigle',
+        };
+    }
     pad(num, size = 6) {
         num = num.toString();
         while (num.length < size)
             num = "0" + num;
         return num;
+    }
+    async findOneById(id) {
+        return await this.studentRepo.findOneBy({ id });
     }
     async create(createStudentDto) {
         const student = this.studentRepo.create(createStudentDto);
@@ -40,7 +59,7 @@ let StudentsService = class StudentsService extends abstract_service_1.AbstracSe
         const random = this.pad(Math.floor(Math.random() * 1000).toString(), 3);
         const updateStudent = await this.studentRepo.preload({ id: student.id, code: random + '-' + this.pad(count.toString()) });
         await this.studentRepo.save(updateStudent);
-        return this.findOneStudent(person.uuid, ['person']);
+        return this.findOneStudent(person.uuid, ['person', 'studentinfos']);
     }
     async findOneStudent(uuid, relations = []) {
         const person = await this.personService.findOne(uuid);

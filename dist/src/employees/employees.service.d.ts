@@ -8,6 +8,7 @@ export declare class EmployeesService extends AbstracService {
     private personService;
     private empRepo;
     constructor(personService: PersonsService, empRepo: Repository<Employee>);
+    createRandomUser(): CreateEmployeeDto;
     create(createEmployeeDto: CreateEmployeeDto): Promise<Employee>;
     findOneEmployee(uuid: string, relations?: any[]): Promise<any>;
     updateOneEmployee(uuid: string, updateEmployeeDto: UpdateEmployeeDto): Promise<Employee>;

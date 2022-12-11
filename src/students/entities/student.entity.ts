@@ -1,5 +1,6 @@
 import { Person } from "src/persons/entities/person.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { StudentInformationsCompementaires } from "./student.infos.entity";
 
 @Entity()
 export class Student {
@@ -24,6 +25,12 @@ export class Student {
     @Column({nullable:true})
     nif: string;
 
+    @Column("tinyint",{default:0})
+    isValidate: boolean;
+
+    @Column("tinyint",{default:1})
+    isActive: boolean;
+
     @CreateDateColumn()
     createdAt: Date;
   
@@ -36,5 +43,8 @@ export class Student {
     @OneToOne(() => Person)
     @JoinColumn()
     person: Person;
+
+    @OneToOne(() => StudentInformationsCompementaires,studentinfo=>studentinfo.student)
+    studentinfos: StudentInformationsCompementaires;
 
 }

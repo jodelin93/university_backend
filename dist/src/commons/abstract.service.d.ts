@@ -5,7 +5,7 @@ export declare abstract class AbstracService {
     protected constructor(repository: Repository<any>);
     create(data: any): Promise<any>;
     find(): Promise<any[]>;
-    findAll(page?: number, relations?: any[]): Promise<PaginateResult>;
+    findAll(page: number, relations?: any[]): Promise<PaginateResult>;
     findOne(condition: any, relations?: any[]): Promise<any>;
     update(id: number, data: any): Promise<any>;
     remove(id: number): Promise<any>;

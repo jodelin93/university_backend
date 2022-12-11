@@ -6,7 +6,7 @@ import { TypeOrmFilter } from './exceptions/typeorm.exception';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
- 
+
   app.setGlobalPrefix('/v1/api');
   app.useGlobalPipes(
     new ValidationPipe({

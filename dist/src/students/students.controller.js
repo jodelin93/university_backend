@@ -25,11 +25,11 @@ let StudentsController = class StudentsController {
     create(createStudentDto) {
         return this.studentsService.create(createStudentDto);
     }
-    findAll() {
-        return this.studentsService.findAll(1, ['person']);
+    findAll(page) {
+        return this.studentsService.findAll(page, ['person', 'studentinfos']);
     }
     findOne(uuid) {
-        return this.studentsService.findOneStudent(uuid, ['person']);
+        return this.studentsService.findOneStudent(uuid, ['person', 'studentinfos']);
     }
     update(uuid, updateStudentDto) {
         return this.studentsService.updateOneStudent(uuid, updateStudentDto);
@@ -40,8 +40,11 @@ let StudentsController = class StudentsController {
 };
 __decorate([
     (0, common_1.Post)(),
-    (0, swagger_1.ApiOperation)({ description: "this is the endpoint for Creating  a student" }),
-    (0, swagger_1.ApiCreatedResponse)({ description: 'The record has been successfully created.', type: create_student_dto_1.CreateStudentDto }),
+    (0, swagger_1.ApiOperation)({ description: 'this is the endpoint for Creating  a student' }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: 'The record has been successfully created.',
+        type: create_student_dto_1.CreateStudentDto,
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_student_dto_1.CreateStudentDto]),
@@ -49,16 +52,25 @@ __decorate([
 ], StudentsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, swagger_1.ApiOperation)({ description: "this is the endpoint for retrieving all  students" }),
-    (0, swagger_1.ApiResponse)({ type: create_student_dto_1.CreateStudentDto, description: 'Operation pour recupperer toutes les etudiants', isArray: true }),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for retrieving all  students',
+    }),
+    (0, swagger_1.ApiResponse)({
+        type: create_student_dto_1.CreateStudentDto,
+        description: 'Operation pour recupperer toutes les etudiants',
+        isArray: true,
+    }),
+    __param(0, (0, common_1.Query)('page', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], StudentsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiResponse)({ type: create_student_dto_1.CreateStudentDto }),
-    (0, swagger_1.ApiOperation)({ description: "this is the endpoint for retrieving  one student" }),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for retrieving  one student',
+    }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -66,8 +78,11 @@ __decorate([
 ], StudentsController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    (0, swagger_1.ApiCreatedResponse)({ description: 'The record has been successfully updated.', type: create_student_dto_1.CreateStudentDto }),
-    (0, swagger_1.ApiOperation)({ description: "this is the endpoint for updating  a student" }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: 'The record has been successfully updated.',
+        type: create_student_dto_1.CreateStudentDto,
+    }),
+    (0, swagger_1.ApiOperation)({ description: 'this is the endpoint for updating  a student' }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -76,7 +91,9 @@ __decorate([
 ], StudentsController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    (0, swagger_1.ApiOperation)({ description: "this is the endpoint for deleting  one student" }),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for deleting  one student',
+    }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

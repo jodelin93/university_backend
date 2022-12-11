@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
@@ -30,7 +31,7 @@ export class EmployeesController {
   @Get()
   @ApiOperation({ description: "this is the endpoint for retrieving all the employees" })
   @ApiResponse({type:CreateEmployeeDto, description: 'Operation pour recupperer toutes les personnes', isArray:true})
-  findAll(@Query('page') page=1) {
+  findAll(@Query('page',ParseIntPipe) page?:number) {
     return this.employeesService.findAll(page,['person']);
   }
 

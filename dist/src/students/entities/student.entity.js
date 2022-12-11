@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Student = void 0;
 const person_entity_1 = require("../../persons/entities/person.entity");
 const typeorm_1 = require("typeorm");
+const student_infos_entity_1 = require("./student.infos.entity");
 let Student = class Student {
 };
 __decorate([
@@ -43,6 +44,14 @@ __decorate([
     __metadata("design:type", String)
 ], Student.prototype, "nif", void 0);
 __decorate([
+    (0, typeorm_1.Column)("tinyint", { default: 0 }),
+    __metadata("design:type", Boolean)
+], Student.prototype, "isValidate", void 0);
+__decorate([
+    (0, typeorm_1.Column)("tinyint", { default: 1 }),
+    __metadata("design:type", Boolean)
+], Student.prototype, "isActive", void 0);
+__decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], Student.prototype, "createdAt", void 0);
@@ -59,6 +68,10 @@ __decorate([
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", person_entity_1.Person)
 ], Student.prototype, "person", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => student_infos_entity_1.StudentInformationsCompementaires, studentinfo => studentinfo.student),
+    __metadata("design:type", student_infos_entity_1.StudentInformationsCompementaires)
+], Student.prototype, "studentinfos", void 0);
 Student = __decorate([
     (0, typeorm_1.Entity)()
 ], Student);
