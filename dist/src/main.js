@@ -7,6 +7,13 @@ const app_module_1 = require("./app.module");
 const typeorm_exception_1 = require("./exceptions/typeorm.exception");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    app.enableCors({
+        origin: [
+            'http://localhost:3000'
+        ],
+        methods: ["GET", "POST", "PATCH", 'DELETE'],
+        credentials: true,
+    });
     app.setGlobalPrefix('/v1/api');
     app.useGlobalPipes(new common_1.ValidationPipe({
         whitelist: true,
