@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { EmployeesModule } from './employees/employees.module';
 import { StudentsModule } from './students/students.module';
 import { TeachersModule } from './teachers/teachers.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -13,16 +14,15 @@ import { TeachersModule } from './teachers/teachers.module';
       type: 'mysql',
       host: 'localhost',
       port: +process.env.DATABASE_PORT,
-      username: process.env.DATABASE_USER_PROD,
-      password: process.env.DATABASE_PASSWORD_PROD,
-      database: process.env.DATABASE_NAME_PROD ,
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME ,
       logging: false,
       autoLoadEntities: true,
       synchronize: true,
     }),
     EmployeesModule,
-    StudentsModule,
-    TeachersModule,
+    StudentsModule,TeachersModule,UsersModule
   ],
   controllers: [],
   providers: [],

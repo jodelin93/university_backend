@@ -24,8 +24,8 @@ let PersonsService = class PersonsService {
     async create(createPersonDto) {
         return await this.personRepo.save(createPersonDto);
     }
-    findAll() {
-        return `This action returns all persons`;
+    async findOnePersonByEmail(email) {
+        return await this.personRepo.findOne({ where: { email } });
     }
     async findOne(uuid) {
         const person = await this.personRepo.findOne({ where: { uuid } });

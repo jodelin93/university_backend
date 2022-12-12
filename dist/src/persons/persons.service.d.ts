@@ -6,7 +6,7 @@ export declare class PersonsService {
     private personRepo;
     constructor(personRepo: Repository<Person>);
     create(createPersonDto: CreatePersonDto): Promise<CreatePersonDto & Person>;
-    findAll(): string;
+    findOnePersonByEmail(email: string): Promise<Person>;
     findOne(uuid: string): Promise<Person>;
     update(uuid: string, updatePersonDto: UpdatePersonDto): Promise<Person>;
     remove(uuid: string): Promise<void>;

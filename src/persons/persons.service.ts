@@ -14,8 +14,8 @@ export class PersonsService {
     return await this.personRepo.save(createPersonDto);
   }
 
-  findAll() {
-    return `This action returns all persons`;
+ async  findOnePersonByEmail(email:string) {
+    return await this.personRepo.findOne({where:{email}})
   }
 
   async findOne(uuid: string) {

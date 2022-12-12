@@ -13,6 +13,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const employees_module_1 = require("./employees/employees.module");
 const students_module_1 = require("./students/students.module");
 const teachers_module_1 = require("./teachers/teachers.module");
+const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -23,16 +24,15 @@ AppModule = __decorate([
                 type: 'mysql',
                 host: 'localhost',
                 port: +process.env.DATABASE_PORT,
-                username: process.env.DATABASE_USER_PROD,
-                password: process.env.DATABASE_PASSWORD_PROD,
-                database: process.env.DATABASE_NAME_PROD,
+                username: process.env.DATABASE_USER,
+                password: process.env.DATABASE_PASSWORD,
+                database: process.env.DATABASE_NAME,
                 logging: false,
                 autoLoadEntities: true,
                 synchronize: true,
             }),
             employees_module_1.EmployeesModule,
-            students_module_1.StudentsModule,
-            teachers_module_1.TeachersModule,
+            students_module_1.StudentsModule, teachers_module_1.TeachersModule, users_module_1.UsersModule
         ],
         controllers: [],
         providers: [],
