@@ -29,7 +29,10 @@ let StudentsController = class StudentsController {
         return this.studentsService.findAll(page, ['person', 'studentinfos']);
     }
     findOne(uuid) {
-        return this.studentsService.findOneStudent(uuid, ['person', 'studentinfos']);
+        return this.studentsService.findOneStudent(uuid, [
+            'person',
+            'studentinfos',
+        ]);
     }
     update(uuid, updateStudentDto) {
         return this.studentsService.updateOneStudent(uuid, updateStudentDto);

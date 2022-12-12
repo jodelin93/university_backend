@@ -36,11 +36,11 @@ let EmployeesService = class EmployeesService extends abstract_service_1.Abstrac
             telephone: faker_1.faker.phone.number(),
             email: faker_1.faker.internet.email(),
             fonction: faker_1.faker.name.jobTitle(),
-            salaire: Number.parseFloat(faker_1.faker.finance.amount())
+            salaire: Number.parseFloat(faker_1.faker.finance.amount()),
         };
     }
     async create(createEmployeeDto) {
-        const emp = this.empRepo.create(this.createRandomUser());
+        const emp = this.empRepo.create(createEmployeeDto);
         const person = await this.personService.create(createEmployeeDto);
         emp.person = person;
         return await this.empRepo.save(emp);
@@ -51,11 +51,14 @@ let EmployeesService = class EmployeesService extends abstract_service_1.Abstrac
     }
     async updateOneEmployee(uuid, updateEmployeeDto) {
         const oneEmployee = await this.findOneEmployee(uuid);
-        const id = oneEmployee.id;
+        const id = oneEmployee.personId;
         const emp = await this.empRepo.preload(Object.assign({ id }, updateEmployeeDto));
         await this.personService.update(uuid, updateEmployeeDto);
         const updateEmp = await this.empRepo.save(emp);
-        return await this.empRepo.findOne({ where: { id: updateEmp.id }, relations: ['person'] });
+        return await this.empRepo.findOne({
+            where: { id: updateEmp.id },
+            relations: ['person'],
+        });
     }
     async removeOneEmployee(uuid) {
         const employee = await this.findOneEmployee(uuid, ['person']);

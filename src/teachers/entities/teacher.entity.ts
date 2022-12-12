@@ -1,10 +1,11 @@
 import { Person } from 'src/persons/entities/person.entity';
-import { Column, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 export enum Niveau {
   LICENCE = 'licence',
   MAITRISE = 'maitrise',
   DOCTORAT = 'doctorat',
 }
+@Entity()
 export class Teacher {
   @PrimaryGeneratedColumn() id: number;
 
