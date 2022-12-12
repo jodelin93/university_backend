@@ -8,6 +8,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Roles } from './entities/roles.entity';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcryptjs';
+import { UpdateUserRoleDto } from './dto/update-user.role.dto';
 
 @Injectable()
 export class UsersService extends AbstracService {
@@ -49,15 +50,32 @@ export class UsersService extends AbstracService {
 
 
 
-  async findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOneUser(uuid: string, relations: any[] = []) {
+    const person = await this.personService.findOne(uuid);
+    return super.findOne({ personId: person.id }, relations);
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async updateRoleStudent(uuid: string, updateUserRoleDto: UpdateUserRoleDto) {
+    const oneUser = await this.findOneUser(uuid);
+    const id = oneUser.id;
+    const rolesaved = await this.roleRepo.findOne({ where: { role_name: updateUserRoleDto.role_name } })
+    if (!rolesaved) {
+      throw new BadRequestException('role does not exist')
+    }
+    await this.userRepo.update(id, { role:rolesaved});
+   
+    return await this.userRepo.findOne({
+      where: { id },
+      relations: ['person','role'],
+    });
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} user`;
+ 
+
+  async removeOneUser(uuid: string) {
+    const student = await this.findOneUser(uuid, ['person']);
+    await this.userRepo.remove(student);
+    await this.personService.remove(student.uuid);
+    return student;
   }
 }

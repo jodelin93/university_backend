@@ -16,8 +16,8 @@ exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const create_user_dto_1 = require("./dto/create-user.dto");
-const update_user_dto_1 = require("./dto/update-user.dto");
 const swagger_1 = require("@nestjs/swagger");
+const update_user_role_dto_1 = require("./dto/update-user.role.dto");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -26,16 +26,19 @@ let UsersController = class UsersController {
         return this.usersService.create(createUserDto);
     }
     findAll() {
-        return this.usersService.findAll(1);
+        return this.usersService.findAll(1, ['person', 'role']);
     }
-    findOne(id) {
-        return this.usersService.findOne(+id);
+    findFilterAll() {
+        return this.usersService.find(['person', 'role']);
     }
-    update(id, updateUserDto) {
-        return this.usersService.update(+id, updateUserDto);
+    findOne(uuid) {
+        return this.usersService.findOneUser(uuid, ['person', 'role']);
     }
-    remove(id) {
-        return this.usersService.remove(+id);
+    update(uuid, updateUserRoleDto) {
+        return this.usersService.updateRoleStudent(uuid, updateUserRoleDto);
+    }
+    remove(uuid) {
+        return this.usersService.removeOneUser(uuid);
     }
 };
 __decorate([
@@ -52,29 +55,78 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "create", null);
 __decorate([
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for retrieving all  users without filter',
+    }),
+    (0, swagger_1.ApiResponse)({
+        type: create_user_dto_1.CreateUserDto,
+        description: 'Operation pour recupperer toutes les utilisateurs sans filtrer',
+        isArray: true,
+    }),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for retrieving all  students without filter',
+    }),
+    (0, swagger_1.ApiResponse)({
+        type: create_user_dto_1.CreateUserDto,
+        description: 'Operation pour recupperer toutes les etudiants sans filtrer',
+        isArray: true,
+    }),
+    (0, common_1.Get)('filter/all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "findFilterAll", null);
+__decorate([
+    (0, swagger_1.ApiResponse)({ type: create_user_dto_1.CreateUserDto }),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for retrieving  one user',
+    }),
+    (0, common_1.Get)(':uuid'),
+    (0, swagger_1.ApiParam)({
+        name: 'uuid',
+        type: 'string',
+        description: 'uuid utilisateur'
+    }),
+    __param(0, (0, common_1.Param)('uuid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Patch)(':uuid'),
+    (0, swagger_1.ApiParam)({
+        name: 'uuid',
+        type: 'string',
+        description: 'uuid utilisateur'
+    }),
+    (0, swagger_1.ApiResponse)({ type: create_user_dto_1.CreateUserDto }),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for updating  role of a user',
+    }),
+    __param(0, (0, common_1.Param)('uuid')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_user_dto_1.UpdateUserDto]),
+    __metadata("design:paramtypes", [String, update_user_role_dto_1.UpdateUserRoleDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(':uuid'),
+    (0, swagger_1.ApiParam)({
+        name: 'uuid',
+        type: 'string',
+        description: 'uuid utilisateur'
+    }),
+    (0, swagger_1.ApiResponse)({ type: create_user_dto_1.CreateUserDto }),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for deleting  a user',
+    }),
+    __param(0, (0, common_1.Param)('uuid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)

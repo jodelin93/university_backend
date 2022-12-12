@@ -28,6 +28,9 @@ let EmployeesController = class EmployeesController {
     findAll(page) {
         return this.employeesService.findAll(page, ['person']);
     }
+    findFilterAll() {
+        return this.employeesService.find(['person']);
+    }
     findOne(uuid) {
         return this.employeesService.findOneEmployee(uuid, ['person']);
     }
@@ -57,28 +60,57 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], EmployeesController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for retrieving all  employee without filter',
+    }),
+    (0, swagger_1.ApiResponse)({
+        type: create_employee_dto_1.CreateEmployeeDto,
+        description: 'Operation pour recupperer tous les utilisateurs sans filtrer',
+        isArray: true,
+    }),
+    (0, common_1.Get)('filter/all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], EmployeesController.prototype, "findFilterAll", null);
+__decorate([
+    (0, common_1.Get)(':uuid'),
+    (0, swagger_1.ApiParam)({
+        name: 'uuid',
+        type: 'string',
+        description: 'uuid etudiant'
+    }),
     (0, swagger_1.ApiResponse)({ type: create_employee_dto_1.CreateEmployeeDto }),
     (0, swagger_1.ApiOperation)({ description: "this is the endpoint for retrieving  one employee" }),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('uuid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], EmployeesController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
+    (0, common_1.Patch)(':uuid'),
+    (0, swagger_1.ApiParam)({
+        name: 'uuid',
+        type: 'string',
+        description: 'uuid etudiant'
+    }),
     (0, swagger_1.ApiCreatedResponse)({ description: 'The record has been successfully updated.', type: create_employee_dto_1.CreateEmployeeDto }),
     (0, swagger_1.ApiOperation)({ description: "this is the endpoint for updating  an employee" }),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('uuid')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_employee_dto_1.UpdateEmployeeDto]),
     __metadata("design:returntype", void 0)
 ], EmployeesController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
+    (0, common_1.Delete)(':uuid'),
+    (0, swagger_1.ApiParam)({
+        name: 'uuid',
+        type: 'string',
+        description: 'uuid etudiant'
+    }),
     (0, swagger_1.ApiOperation)({ description: "this is the endpoint for deleting  one employee" }),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('uuid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)

@@ -12,7 +12,7 @@ import {
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiForbiddenResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiCreatedResponse, ApiForbiddenResponse, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiBadRequestResponse({ status: 400, description: 'bad request response' })
 @ApiForbiddenResponse({ description: 'Forbidden' })
@@ -34,27 +34,54 @@ export class EmployeesController {
   findAll(@Query('page',ParseIntPipe) page?:number) {
     return this.employeesService.findAll(page,['person']);
   }
+  @ApiOperation({
+    description: 'this is the endpoint for retrieving all  employee without filter',
+  })
+  @ApiResponse({
+    type: CreateEmployeeDto,
+    description: 'Operation pour recupperer tous les utilisateurs sans filtrer',
+    isArray: true,
+  })
+  @Get('filter/all')
+  findFilterAll() {
+    return this.employeesService.find(['person']);
+  }
 
-  @Get(':id')
+  @Get(':uuid')
+  @ApiParam({
+    name: 'uuid',
+      type: 'string',
+    description:'uuid etudiant'
+  }) 
   @ApiResponse({ type: CreateEmployeeDto })
   @ApiOperation({ description: "this is the endpoint for retrieving  one employee" })
-  findOne( @Param('id',)  uuid: string) {
+  findOne( @Param('uuid',)  uuid: string) {
     return this.employeesService.findOneEmployee(uuid,['person']);
   }
 
-  @Patch(':id')
+  @Patch(':uuid')
+  @ApiParam({
+    name: 'uuid',
+      type: 'string',
+    description:'uuid etudiant'
+  })
   @ApiCreatedResponse({ description: 'The record has been successfully updated.',type:CreateEmployeeDto})
   @ApiOperation({ description: "this is the endpoint for updating  an employee" })
   update(
-    @Param('id') uuid: string,
+    @Param('uuid') uuid: string,
     @Body() updateEmployeeDto: UpdateEmployeeDto,
   ) {
     return this.employeesService.updateOneEmployee(uuid, updateEmployeeDto);
   }
 
-  @Delete(':id',)
+  @Delete(':uuid',)
+  @ApiParam({
+    name: 'uuid',
+      type: 'string',
+    description:'uuid etudiant'
+  })
   @ApiOperation({ description: "this is the endpoint for deleting  one employee" })
-  remove(@Param('id') uuid: string) {
+  remove(@Param('uuid') uuid: string) {
     return this.employeesService.removeOneEmployee(uuid);
   }
 

@@ -19,8 +19,8 @@ let AbstracService = class AbstracService {
     async create(data) {
         return await this.repository.save(data);
     }
-    async find() {
-        return await this.repository.find();
+    async find(relations = []) {
+        return await this.repository.find({ relations });
     }
     async findAll(page, relations = []) {
         const take = 15;

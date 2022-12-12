@@ -38,7 +38,7 @@ let StudentsService = class StudentsService extends abstract_service_1.AbstracSe
             telephone: faker_1.faker.phone.number(),
             email: faker_1.faker.internet.email(),
             groupe_sanguin: 'O+',
-            statut_matrimonial: 'sigle',
+            statut_matrimonial: 'single',
         };
     }
     pad(num, size = 6) {

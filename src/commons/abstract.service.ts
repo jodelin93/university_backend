@@ -10,8 +10,8 @@ export abstract class AbstracService {
         return await this.repository.save(data);
     }
 
-    async find(): Promise<any[]>{
-        return await this.repository.find();
+    async find( relations = []): Promise<any[]>{
+        return await this.repository.find({relations});
     }
 
     async findAll(page:number , relations = []): Promise<PaginateResult> {

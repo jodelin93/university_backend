@@ -28,6 +28,9 @@ let TeachersController = class TeachersController {
     findAll(page) {
         return this.teachersService.findAll(page, ['person']);
     }
+    findFilterAll() {
+        return this.teachersService.find(['person']);
+    }
     findOne(uuid) {
         return this.teachersService.findOneTeacher(uuid, ['person']);
     }
@@ -66,34 +69,55 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TeachersController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
+    (0, common_1.Get)('filter/all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], TeachersController.prototype, "findFilterAll", null);
+__decorate([
+    (0, common_1.Get)(':uuid'),
+    (0, swagger_1.ApiParam)({
+        name: 'uuid',
+        type: 'string',
+        description: 'uuid professeur'
+    }),
     (0, swagger_1.ApiResponse)({ type: create_teacher_dto_1.CreateTeacherDto }),
     (0, swagger_1.ApiOperation)({
         description: 'this is the endpoint for retrieving  one teacher',
     }),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('uuid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], TeachersController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
+    (0, common_1.Patch)(':uuid'),
+    (0, swagger_1.ApiParam)({
+        name: 'uuid',
+        type: 'string',
+        description: 'uuid professeur'
+    }),
     (0, swagger_1.ApiCreatedResponse)({
         description: 'The record has been successfully updated.',
         type: create_teacher_dto_1.CreateTeacherDto,
     }),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('uuid')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_teacher_dto_1.UpdateTeacherDto]),
     __metadata("design:returntype", void 0)
 ], TeachersController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
+    (0, common_1.Delete)(':uuid'),
+    (0, swagger_1.ApiParam)({
+        name: 'uuid',
+        type: 'string',
+        description: 'uuid professeur'
+    }),
     (0, swagger_1.ApiOperation)({
         description: 'this is the endpoint for deleting  one teacher',
     }),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('uuid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)

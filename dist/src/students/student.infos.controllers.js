@@ -40,6 +40,11 @@ let StudentInfoController = class StudentInfoController {
 };
 __decorate([
     (0, common_1.Post)(':id'),
+    (0, swagger_1.ApiParam)({
+        name: 'id',
+        type: 'number',
+        description: 'id etudiant'
+    }),
     (0, swagger_1.ApiOperation)({ description: 'this is the endpoint for Creating  a student' }),
     (0, swagger_1.ApiBody)({ type: create_infos_students_dto_1.CreateStudentInfoDto }),
     (0, swagger_1.ApiCreatedResponse)({
@@ -59,6 +64,11 @@ __decorate([
 ], StudentInfoController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(':id'),
+    (0, swagger_1.ApiParam)({
+        name: 'id',
+        type: 'number',
+        description: 'id etudiant'
+    }),
     (0, swagger_1.ApiResponse)({ type: create_infos_students_dto_1.CreateStudentInfoDto }),
     (0, swagger_1.ApiOperation)({
         description: 'this is the endpoint for retrieving  one student infos',
@@ -76,6 +86,11 @@ __decorate([
 ], StudentInfoController.prototype, "find", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, swagger_1.ApiParam)({
+        name: 'id',
+        type: 'number',
+        description: 'id etudiant'
+    }),
     (0, swagger_1.ApiCreatedResponse)({
         description: 'The record has been successfully updated.',
         type: update_infos_student_dto_1.UpdateStudentInfoDto,
@@ -96,6 +111,11 @@ __decorate([
 ], StudentInfoController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiParam)({
+        name: 'id',
+        type: 'number',
+        description: 'id etudiant'
+    }),
     (0, swagger_1.ApiOperation)({
         description: 'this is the endpoint for deleting  one student infos',
     }),

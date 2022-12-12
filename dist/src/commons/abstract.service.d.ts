@@ -4,7 +4,7 @@ export declare abstract class AbstracService {
     private readonly repository;
     protected constructor(repository: Repository<any>);
     create(data: any): Promise<any>;
-    find(): Promise<any[]>;
+    find(relations?: any[]): Promise<any[]>;
     findAll(page: number, relations?: any[]): Promise<PaginateResult>;
     findOne(condition: any, relations?: any[]): Promise<any>;
     update(id: number, data: any): Promise<any>;

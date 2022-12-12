@@ -17,6 +17,7 @@ import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiOperation,
+  ApiParam,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -51,32 +52,52 @@ export class TeachersController {
     return this.teachersService.findAll(page, ['person']);
   }
 
-  @Get(':id')
+  @Get('filter/all')
+  findFilterAll() {
+    return this.teachersService.find(['person']);
+  }
+
+  @Get(':uuid')
+  @ApiParam({
+    name: 'uuid',
+      type: 'string',
+    description:'uuid professeur'
+  })
   @ApiResponse({ type: CreateTeacherDto })
   @ApiOperation({
     description: 'this is the endpoint for retrieving  one teacher',
   })
-  findOne(@Param('id') uuid: string) {
+  findOne(@Param('uuid') uuid: string) {
     return this.teachersService.findOneTeacher(uuid, ['person']);
   }
 
-  @Patch(':id')
+  @Patch(':uuid')
+  @ApiParam({
+    name: 'uuid',
+      type: 'string',
+    description:'uuid professeur'
+  })
   @ApiCreatedResponse({
     description: 'The record has been successfully updated.',
     type: CreateTeacherDto,
   })
   update(
-    @Param('id') uuid: string,
+    @Param('uuid') uuid: string,
     @Body() updateTeacherDto: UpdateTeacherDto,
   ) {
     return this.teachersService.updateOneTeacher(uuid, updateTeacherDto);
   }
 
-  @Delete(':id')
+  @Delete(':uuid')
+  @ApiParam({
+    name: 'uuid',
+      type: 'string',
+    description:'uuid professeur'
+  })
   @ApiOperation({
     description: 'this is the endpoint for deleting  one teacher',
   })
-  remove(@Param('id') uuid: string) {
+  remove(@Param('uuid') uuid: string) {
     return this.teachersService.removeOneTeacher(uuid);
   }
 }

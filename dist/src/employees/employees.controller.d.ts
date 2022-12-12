@@ -6,6 +6,7 @@ export declare class EmployeesController {
     constructor(employeesService: EmployeesService);
     create(createEmployeeDto: CreateEmployeeDto): Promise<import("./entities/employee.entity").Employee>;
     findAll(page?: number): Promise<import("../commons/paginate-result.interface").PaginateResult>;
+    findFilterAll(): Promise<any[]>;
     findOne(uuid: string): Promise<any>;
     update(uuid: string, updateEmployeeDto: UpdateEmployeeDto): Promise<import("./entities/employee.entity").Employee>;
     remove(uuid: string): Promise<any>;

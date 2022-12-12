@@ -6,6 +6,7 @@ export declare class TeachersController {
     constructor(teachersService: TeachersService);
     create(createTeacherDto: CreateTeacherDto): Promise<import("./entities/teacher.entity").Teacher>;
     findAll(page?: number): Promise<import("../commons/paginate-result.interface").PaginateResult>;
+    findFilterAll(): Promise<any[]>;
     findOne(uuid: string): Promise<any>;
     update(uuid: string, updateTeacherDto: UpdateTeacherDto): Promise<import("./entities/teacher.entity").Teacher>;
     remove(uuid: string): Promise<any>;

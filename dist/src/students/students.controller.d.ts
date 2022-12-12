@@ -6,6 +6,7 @@ export declare class StudentsController {
     constructor(studentsService: StudentsService);
     create(createStudentDto: CreateStudentDto): Promise<any>;
     findAll(page?: number): Promise<import("../commons/paginate-result.interface").PaginateResult>;
+    findFilterAll(): Promise<any[]>;
     findOne(uuid: string): Promise<any>;
     update(uuid: string, updateStudentDto: UpdateStudentDto): Promise<import("./entities/student.entity").Student>;
     remove(uuid: string): Promise<any>;

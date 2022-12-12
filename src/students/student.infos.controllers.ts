@@ -29,6 +29,11 @@ import { StudentInfoService } from './student.infos.service';
 export class StudentInfoController {
   constructor(private readonly studentInfoService: StudentInfoService) {}
   @Post(':id')
+  @ApiParam({
+    name: 'id',
+      type: 'number',
+    description:'id etudiant'
+  })   
   @ApiOperation({ description: 'this is the endpoint for Creating  a student' })
   @ApiBody({ type: CreateStudentInfoDto })
   @ApiCreatedResponse({
@@ -47,7 +52,12 @@ export class StudentInfoController {
     return this.studentInfoService.createinfoStudent(id, createStudentInfoDto);
     }
     
-@Get(':id')
+  @Get(':id')
+  @ApiParam({
+    name: 'id',
+      type: 'number',
+    description:'id etudiant'
+  }) 
   @ApiResponse({ type: CreateStudentInfoDto })
   @ApiOperation({
     description: 'this is the endpoint for retrieving  one student infos',
@@ -62,6 +72,11 @@ export class StudentInfoController {
   }
 
   @Patch(':id')
+  @ApiParam({
+    name: 'id',
+      type: 'number',
+    description:'id etudiant'
+  }) 
   @ApiCreatedResponse({
     description: 'The record has been successfully updated.',
     type: UpdateStudentInfoDto,
@@ -82,7 +97,12 @@ export class StudentInfoController {
     return this.studentInfoService.updateinfoStudent(id, updateStudentInfoDto);
     }
     
-    @Delete(':id')
+  @Delete(':id')
+  @ApiParam({
+    name: 'id',
+      type: 'number',
+    description:'id etudiant'
+  }) 
     @ApiOperation({
       description: 'this is the endpoint for deleting  one student infos',
     })

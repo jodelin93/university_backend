@@ -17,6 +17,7 @@ import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiOperation,
+  ApiParam,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -50,36 +51,64 @@ export class StudentsController {
     return this.studentsService.findAll(page, ['person', 'studentinfos']);
   }
 
-  @Get(':id')
+  @Get('filter/all')
+  @ApiOperation({
+    description: 'this is the endpoint for retrieving all  students without filter',
+  })
+  @ApiResponse({
+    type: CreateStudentDto,
+    description: 'Operation pour recupperer toutes les etudiants sans filtrer',
+    isArray: true,
+  })
+  findFilterAll() {
+    return this.studentsService.find(['person']);
+  }
+
+  @Get(':uuid')
+  @ApiParam({
+    name: 'uuid',
+      type: 'string',
+    description:'uuid etudiant'
+  })
   @ApiResponse({ type: CreateStudentDto })
   @ApiOperation({
     description: 'this is the endpoint for retrieving  one student',
   })
-  findOne(@Param('id') uuid: string) {
+  findOne(@Param('uuid') uuid: string) {
     return this.studentsService.findOneStudent(uuid, [
       'person',
       'studentinfos',
     ]);
   }
 
-  @Patch(':id')
+  @Patch(':uuid')
+  @ApiParam({
+    name: 'uuid',
+      type: 'string',
+    description:'uuid etudiant'
+  })
   @ApiCreatedResponse({
     description: 'The record has been successfully updated.',
     type: CreateStudentDto,
   })
   @ApiOperation({ description: 'this is the endpoint for updating  a student' })
   update(
-    @Param('id') uuid: string,
+    @Param('uuid') uuid: string,
     @Body() updateStudentDto: UpdateStudentDto,
   ) {
     return this.studentsService.updateOneStudent(uuid, updateStudentDto);
   }
 
-  @Delete(':id')
+  @Delete(':uuid')
+  @ApiParam({
+    name: 'uuid',
+      type: 'string',
+    description:'uuid etudiant'
+  })
   @ApiOperation({
     description: 'this is the endpoint for deleting  one student',
   })
-  remove(@Param('id') uuid: string) {
+  remove(@Param('uuid') uuid: string) {
     return this.studentsService.removeOneStudent(uuid);
   }
 }

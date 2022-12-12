@@ -29,7 +29,7 @@ export class StudentsService extends AbstracService {
       telephone: faker.phone.number(),
       email: faker.internet.email(),
       groupe_sanguin: 'O+',
-      statut_matrimonial: 'sigle',
+      statut_matrimonial: 'single',
     };
   }
 

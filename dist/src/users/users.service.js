@@ -54,14 +54,28 @@ let UsersService = class UsersService extends abstract_service_1.AbstracService 
         user.role = rolesaved;
         return await this.userRepo.save(user);
     }
-    async findOne(id) {
-        return `This action returns a #${id} user`;
+    async findOneUser(uuid, relations = []) {
+        const person = await this.personService.findOne(uuid);
+        return super.findOne({ personId: person.id }, relations);
     }
-    async update(id, updateUserDto) {
-        return `This action updates a #${id} user`;
+    async updateRoleStudent(uuid, updateUserRoleDto) {
+        const oneUser = await this.findOneUser(uuid);
+        const id = oneUser.id;
+        const rolesaved = await this.roleRepo.findOne({ where: { role_name: updateUserRoleDto.role_name } });
+        if (!rolesaved) {
+            throw new common_1.BadRequestException('role does not exist');
+        }
+        await this.userRepo.update(id, { role: rolesaved });
+        return await this.userRepo.findOne({
+            where: { id },
+            relations: ['person', 'role'],
+        });
     }
-    async remove(id) {
-        return `This action removes a #${id} user`;
+    async removeOneUser(uuid) {
+        const student = await this.findOneUser(uuid, ['person']);
+        await this.userRepo.remove(student);
+        await this.personService.remove(student.uuid);
+        return student;
     }
 };
 UsersService = __decorate([
