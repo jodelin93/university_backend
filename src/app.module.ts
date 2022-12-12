@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EmployeesModule } from './employees/employees.module';
 import { StudentsModule } from './students/students.module';
+import { TeachersModule } from './teachers/teachers.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { StudentsModule } from './students/students.module';
     }),
     EmployeesModule,
     StudentsModule,
+    TeachersModule,
   ],
   controllers: [],
   providers: [],

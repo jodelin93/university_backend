@@ -46,8 +46,8 @@ export class StudentsController {
     description: 'Operation pour recupperer toutes les etudiants',
     isArray: true,
   })
-  findAll(@Query('page',ParseIntPipe) page?:number) {
-    return this.studentsService.findAll(page, ['person','studentinfos']);
+  findAll(@Query('page', ParseIntPipe) page?: number) {
+    return this.studentsService.findAll(page, ['person', 'studentinfos']);
   }
 
   @Get(':id')
@@ -56,7 +56,10 @@ export class StudentsController {
     description: 'this is the endpoint for retrieving  one student',
   })
   findOne(@Param('id') uuid: string) {
-    return this.studentsService.findOneStudent(uuid, ['person','studentinfos']);
+    return this.studentsService.findOneStudent(uuid, [
+      'person',
+      'studentinfos',
+    ]);
   }
 
   @Patch(':id')

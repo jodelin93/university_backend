@@ -9,46 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Employee = void 0;
+exports.Teacher = exports.Niveau = void 0;
 const person_entity_1 = require("../../persons/entities/person.entity");
 const typeorm_1 = require("typeorm");
-let Employee = class Employee {
-};
+var Niveau;
+(function (Niveau) {
+    Niveau["LICENCE"] = "licence";
+    Niveau["MAITRISE"] = "maitrise";
+    Niveau["DOCTORAT"] = "doctorat";
+})(Niveau = exports.Niveau || (exports.Niveau = {}));
+class Teacher {
+}
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Employee.prototype, "id", void 0);
+], Teacher.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 255 }),
+    (0, typeorm_1.Column)({ type: 'enum', enum: Niveau, default: Niveau.LICENCE }),
     __metadata("design:type", String)
-], Employee.prototype, "fonction", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Date)
-], Employee.prototype, "date_embauche", void 0);
-__decorate([
-    (0, typeorm_1.Column)('double', { nullable: true }),
-    __metadata("design:type", Number)
-], Employee.prototype, "salaire", void 0);
-__decorate([
-    (0, typeorm_1.CreateDateColumn)(),
-    __metadata("design:type", Date)
-], Employee.prototype, "createdAt", void 0);
-__decorate([
-    (0, typeorm_1.UpdateDateColumn)(),
-    __metadata("design:type", Date)
-], Employee.prototype, "updatedAt", void 0);
+], Teacher.prototype, "niveau", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
-], Employee.prototype, "personId", void 0);
+], Teacher.prototype, "personId", void 0);
 __decorate([
     (0, typeorm_1.OneToOne)(() => person_entity_1.Person),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", person_entity_1.Person)
-], Employee.prototype, "person", void 0);
-Employee = __decorate([
-    (0, typeorm_1.Entity)()
-], Employee);
-exports.Employee = Employee;
-//# sourceMappingURL=employee.entity.js.map
+], Teacher.prototype, "person", void 0);
+exports.Teacher = Teacher;
+//# sourceMappingURL=teacher.entity.js.map

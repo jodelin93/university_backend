@@ -44,7 +44,7 @@ let StudentsService = class StudentsService extends abstract_service_1.AbstracSe
     pad(num, size = 6) {
         num = num.toString();
         while (num.length < size)
-            num = "0" + num;
+            num = '0' + num;
         return num;
     }
     async findOneById(id) {
@@ -57,22 +57,27 @@ let StudentsService = class StudentsService extends abstract_service_1.AbstracSe
         await this.studentRepo.save(student);
         const count = await this.studentRepo.count();
         const random = this.pad(Math.floor(Math.random() * 1000).toString(), 3);
-        const updateStudent = await this.studentRepo.preload({ id: student.id, code: random + '-' + this.pad(count.toString()) });
+        const updateStudent = await this.studentRepo.preload({
+            id: student.id,
+            code: random + '-' + this.pad(count.toString()),
+        });
         await this.studentRepo.save(updateStudent);
         return this.findOneStudent(person.uuid, ['person', 'studentinfos']);
     }
     async findOneStudent(uuid, relations = []) {
         const person = await this.personService.findOne(uuid);
-        console.log(person);
         return super.findOne({ personId: person.id }, relations);
     }
     async updateOneStudent(uuid, updateStudentDto) {
         const oneStudent = await this.findOneStudent(uuid);
-        const id = oneStudent.id;
+        const id = oneStudent.personId;
         const student = await this.studentRepo.preload(Object.assign({ id }, updateStudentDto));
         await this.personService.update(uuid, updateStudentDto);
         const updateStudent = await this.studentRepo.save(student);
-        return await this.studentRepo.findOne({ where: { id: updateStudent.id }, relations: ['person'] });
+        return await this.studentRepo.findOne({
+            where: { id: updateStudent.id },
+            relations: ['person'],
+        });
     }
     async removeOneStudent(uuid) {
         const student = await this.findOneStudent(uuid, ['person']);
