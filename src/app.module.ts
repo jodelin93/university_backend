@@ -6,6 +6,7 @@ import { EmployeesModule } from './employees/employees.module';
 import { StudentsModule } from './students/students.module';
 import { TeachersModule } from './teachers/teachers.module';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,13 +17,13 @@ import { UsersModule } from './users/users.module';
       port: +process.env.DATABASE_PORT,
       username: process.env.DATABASE_USER_PROD,
       password: process.env.DATABASE_PASSWORD_PROD,
-      database: process.env.DATABASE_NAME_PROD ,
+      database: process.env.DATABASE_NAME_PROD,
       logging: false,
       autoLoadEntities: true,
       synchronize: true,
     }),
     EmployeesModule,
-    StudentsModule,TeachersModule,UsersModule
+    StudentsModule,TeachersModule,UsersModule, AuthModule
   ],
   controllers: [],
   providers: [],

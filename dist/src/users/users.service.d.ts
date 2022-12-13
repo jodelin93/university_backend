@@ -11,7 +11,9 @@ export declare class UsersService extends AbstracService {
     private roleRepo;
     constructor(personService: PersonsService, userRepo: Repository<User>, roleRepo: Repository<Roles>);
     create(createUserDto: CreateUserDto): Promise<User>;
+    findOneById(id: number): Promise<User>;
     findOneUser(uuid: string, relations?: any[]): Promise<any>;
+    findOneUserByUsername(username: string): Promise<User>;
     updateRoleStudent(uuid: string, updateUserRoleDto: UpdateUserRoleDto): Promise<User>;
     removeOneUser(uuid: string): Promise<any>;
 }

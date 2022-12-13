@@ -48,11 +48,16 @@ export class UsersService extends AbstracService {
     return await this.userRepo.save(user)
   }
 
-
+  async findOneById(id:number) {
+    return await this.userRepo.findOne({where:{id},relations:['person','role']})
+  }
 
   async findOneUser(uuid: string, relations: any[] = []) {
     const person = await this.personService.findOne(uuid);
     return super.findOne({ personId: person.id }, relations);
+  }
+  async  findOneUserByUsername(username:string) {
+    return await this.userRepo.findOne({where:{username}})
   }
 
   async updateRoleStudent(uuid: string, updateUserRoleDto: UpdateUserRoleDto) {

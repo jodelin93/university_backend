@@ -3,9 +3,11 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { TypeOrmFilter } from './exceptions/typeorm.exception';
-
+import * as CookParser from 'cookie-parser'
+import { JwtAuthGuard } from './auth/jwtguard';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(CookParser())
   app.enableCors({
     origin: [
       'http://localhost:3000'
@@ -22,6 +24,7 @@ async function bootstrap() {
       forbidUnknownValues: true,
     }),
   );
+ 
   app.useGlobalFilters(new TypeOrmFilter())
   
   const config = new DocumentBuilder()

@@ -40,7 +40,7 @@ export class Person {
   @Column({ length: 255, unique: true, nullable: true })
   telephone?: string;
 
-  @Column()
+  @Column("date")
   date_naissance: Date;
 
   @CreateDateColumn()

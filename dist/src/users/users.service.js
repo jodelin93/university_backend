@@ -54,9 +54,15 @@ let UsersService = class UsersService extends abstract_service_1.AbstracService 
         user.role = rolesaved;
         return await this.userRepo.save(user);
     }
+    async findOneById(id) {
+        return await this.userRepo.findOne({ where: { id }, relations: ['person', 'role'] });
+    }
     async findOneUser(uuid, relations = []) {
         const person = await this.personService.findOne(uuid);
         return super.findOne({ personId: person.id }, relations);
+    }
+    async findOneUserByUsername(username) {
+        return await this.userRepo.findOne({ where: { username } });
     }
     async updateRoleStudent(uuid, updateUserRoleDto) {
         const oneUser = await this.findOneUser(uuid);

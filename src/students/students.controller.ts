@@ -1,3 +1,4 @@
+import { JwtAuthGuard } from 'src/auth/jwtguard';
 import {
   Controller,
   Get,
@@ -8,6 +9,7 @@ import {
   Delete,
   ParseIntPipe,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
