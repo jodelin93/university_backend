@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   ParseIntPipe,
   Patch,
@@ -28,6 +29,7 @@ import { StudentInfoService } from './student.infos.service';
 @ApiForbiddenResponse({ description: 'Forbidden' })
 export class StudentInfoController {
   constructor(private readonly studentInfoService: StudentInfoService) {}
+  @HttpCode(200)
   @Post(':id')
   @ApiParam({
     name: 'id',

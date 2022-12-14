@@ -42,8 +42,11 @@ export class TeachersService extends AbstracService {
 
   async removeOneTeacher(uuid: string) {
     const teacher = await this.findOneTeacher(uuid, ['person']);
-    await this.teacherRepo.remove(teacher);
-    await this.personService.remove(teacher.uuid);
-    return teacher;
+    const delTeacher = await this.teacherRepo.remove(teacher);
+    if (delTeacher) {
+      await this.personService.remove(teacher.person.uuid);
+      return teacher;
+    }
+   
   }
 }

@@ -42,6 +42,7 @@ let EmployeesController = class EmployeesController {
     }
 };
 __decorate([
+    (0, common_1.HttpCode)(200),
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ description: "this is the endpoint for Creating  an employee" }),
     (0, swagger_1.ApiCreatedResponse)({ description: 'The record has been successfully created.', type: create_employee_dto_1.CreateEmployeeDto }),
@@ -78,7 +79,7 @@ __decorate([
     (0, swagger_1.ApiParam)({
         name: 'uuid',
         type: 'string',
-        description: 'uuid etudiant'
+        description: 'uuid employe'
     }),
     (0, swagger_1.ApiResponse)({ type: create_employee_dto_1.CreateEmployeeDto }),
     (0, swagger_1.ApiOperation)({ description: "this is the endpoint for retrieving  one employee" }),
@@ -92,7 +93,7 @@ __decorate([
     (0, swagger_1.ApiParam)({
         name: 'uuid',
         type: 'string',
-        description: 'uuid etudiant'
+        description: 'uuid employe'
     }),
     (0, swagger_1.ApiCreatedResponse)({ description: 'The record has been successfully updated.', type: create_employee_dto_1.CreateEmployeeDto }),
     (0, swagger_1.ApiOperation)({ description: "this is the endpoint for updating  an employee" }),
@@ -107,7 +108,7 @@ __decorate([
     (0, swagger_1.ApiParam)({
         name: 'uuid',
         type: 'string',
-        description: 'uuid etudiant'
+        description: 'uuid employe'
     }),
     (0, swagger_1.ApiOperation)({ description: "this is the endpoint for deleting  one employee" }),
     __param(0, (0, common_1.Param)('uuid')),

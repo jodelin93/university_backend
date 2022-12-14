@@ -50,9 +50,10 @@ let EmployeesService = class EmployeesService extends abstract_service_1.Abstrac
         return super.findOne({ personId: emp.id }, relations);
     }
     async updateOneEmployee(uuid, updateEmployeeDto) {
-        const oneEmployee = await this.findOneEmployee(uuid);
-        const id = oneEmployee.personId;
+        const oneEmployee = await this.findOneEmployee(uuid, ['person']);
+        const id = oneEmployee.id;
         const emp = await this.empRepo.preload(Object.assign({ id }, updateEmployeeDto));
+        console.log(emp);
         await this.personService.update(uuid, updateEmployeeDto);
         const updateEmp = await this.empRepo.save(emp);
         return await this.empRepo.findOne({
@@ -62,9 +63,11 @@ let EmployeesService = class EmployeesService extends abstract_service_1.Abstrac
     }
     async removeOneEmployee(uuid) {
         const employee = await this.findOneEmployee(uuid, ['person']);
-        await this.empRepo.remove(employee);
-        await this.personService.remove(employee.uuid);
-        return employee;
+        const delEmp = await this.empRepo.remove(employee);
+        if (delEmp) {
+            await this.personService.remove(employee.person.uuid);
+            return employee;
+        }
     }
 };
 EmployeesService = __decorate([

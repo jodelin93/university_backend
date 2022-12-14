@@ -30,14 +30,14 @@ let PersonsService = class PersonsService {
     async findOne(uuid) {
         const person = await this.personRepo.findOne({ where: { uuid } });
         if (!person) {
-            throw new common_1.BadRequestException(`person with id ${uuid} does not foundddd`);
+            throw new common_1.BadRequestException(`person with id ${uuid} does not found`);
         }
         return person;
     }
     async update(uuid, updatePersonDto) {
         const onePerson = await this.findOne(uuid);
         if (!onePerson) {
-            throw new common_1.BadRequestException(`person with id ${uuid} does not foundddd`);
+            throw new common_1.BadRequestException(`person with id ${uuid} does not found`);
         }
         const id = onePerson.id;
         const person = await this.personRepo.preload(Object.assign({ id }, updatePersonDto));

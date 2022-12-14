@@ -45,6 +45,7 @@ let StudentsController = class StudentsController {
     }
 };
 __decorate([
+    (0, common_1.HttpCode)(200),
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ description: 'this is the endpoint for Creating  a student' }),
     (0, swagger_1.ApiCreatedResponse)({

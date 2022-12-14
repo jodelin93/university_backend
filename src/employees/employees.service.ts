@@ -44,20 +44,26 @@ export class EmployeesService extends AbstracService {
   }
 
   async updateOneEmployee(uuid: string, updateEmployeeDto: UpdateEmployeeDto) {
-    const oneEmployee = await this.findOneEmployee(uuid);
-    const id = oneEmployee.personId;
+    const oneEmployee = await this.findOneEmployee(uuid,['person']);
+    const id = oneEmployee.id;
     const emp = await this.empRepo.preload({ id, ...updateEmployeeDto });
-    await this.personService.update(uuid, updateEmployeeDto);
-    const updateEmp = await this.empRepo.save(emp);
-    return await this.empRepo.findOne({
-      where: { id: updateEmp.id },
-      relations: ['person'],
-    });
+    console.log(emp);
+    
+     await this.personService.update(uuid, updateEmployeeDto);
+     const updateEmp = await this.empRepo.save(emp);
+     return await this.empRepo.findOne({
+       where: { id: updateEmp.id },
+       relations: ['person'],
+     });
   }
   async removeOneEmployee(uuid: string) {
     const employee = await this.findOneEmployee(uuid, ['person']);
-    await this.empRepo.remove(employee);
-    await this.personService.remove(employee.uuid);
-    return employee;
+    
+    const delEmp = await this.empRepo.remove(employee);
+     if (delEmp) {
+      await this.personService.remove(employee.person.uuid);
+      return employee; 
+    }
+    
   }
 }

@@ -1,4 +1,4 @@
 export declare class CreateAuthDto {
-    identifiant: string;
+    username: string;
     password: string;
 }

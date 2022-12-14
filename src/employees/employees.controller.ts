@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   ParseIntPipe,
+  HttpCode,
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
@@ -20,7 +21,7 @@ import { ApiBadRequestResponse, ApiCreatedResponse, ApiForbiddenResponse, ApiOpe
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
-
+  @HttpCode(200)
   @Post()
   @ApiOperation({ description: "this is the endpoint for Creating  an employee" })
   @ApiCreatedResponse({ description: 'The record has been successfully created.',type:CreateEmployeeDto})
@@ -51,7 +52,7 @@ export class EmployeesController {
   @ApiParam({
     name: 'uuid',
       type: 'string',
-    description:'uuid etudiant'
+    description:'uuid employe'
   }) 
   @ApiResponse({ type: CreateEmployeeDto })
   @ApiOperation({ description: "this is the endpoint for retrieving  one employee" })
@@ -63,7 +64,7 @@ export class EmployeesController {
   @ApiParam({
     name: 'uuid',
       type: 'string',
-    description:'uuid etudiant'
+    description:'uuid employe'
   })
   @ApiCreatedResponse({ description: 'The record has been successfully updated.',type:CreateEmployeeDto})
   @ApiOperation({ description: "this is the endpoint for updating  an employee" })
@@ -78,7 +79,7 @@ export class EmployeesController {
   @ApiParam({
     name: 'uuid',
       type: 'string',
-    description:'uuid etudiant'
+    description:'uuid employe'
   })
   @ApiOperation({ description: "this is the endpoint for deleting  one employee" })
   remove(@Param('uuid') uuid: string) {

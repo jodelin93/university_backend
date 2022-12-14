@@ -39,6 +39,7 @@ let StudentInfoController = class StudentInfoController {
     }
 };
 __decorate([
+    (0, common_1.HttpCode)(200),
     (0, common_1.Post)(':id'),
     (0, swagger_1.ApiParam)({
         name: 'id',

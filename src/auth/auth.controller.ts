@@ -1,8 +1,10 @@
-import { Controller, Post, Body, Res, Get, Req, HttpCode} from '@nestjs/common';
+import { Controller, Post, Body, Res,Req, Get, Request, HttpCode, UseInterceptors, ClassSerializerInterceptor, UseGuards} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
-import { Response,Request} from 'express';
+
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiForbiddenResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { LocalAuthGuard } from './local-auth-guard';
+import { JwtGuard } from './jwt-guard';
 @Controller('auth')
 @ApiBadRequestResponse({ status: 400, description: 'bad request response' })
   @ApiForbiddenResponse({ description: 'Forbidden' })
@@ -10,14 +12,17 @@ import { ApiBadRequestResponse, ApiCreatedResponse, ApiForbiddenResponse, ApiOpe
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('login')
   @ApiOperation({ description: 'this is the endpoint for login' })
   @ApiCreatedResponse({
     description: 'The record has been successfully created.',
     type: CreateAuthDto,
   })
-  create(@Body() createAuthDto: CreateAuthDto, @Res({ passthrough: true }) response: Response) {
-    return this.authService.login(createAuthDto,response);
+  @UseGuards(LocalAuthGuard)
+  @HttpCode(200)
+  @Post('login')
+  @UseInterceptors(ClassSerializerInterceptor)
+  create(@Request() req,@Res() res) {
+    return this.authService.login(req.user,res);
   }
   @ApiOperation({ description: 'this is the endpoint for having user authenticated' })
   @ApiCreatedResponse({
@@ -25,23 +30,29 @@ export class AuthController {
     type: CreateAuthDto,
   })
   @Get('user')
-  async user(@Req() req: Request) {
+  async user(@Request() req) {
     return this.authService.user(req);
   }
 
-  @HttpCode(200)
-  @Post('refresh')
-  async refresh(
-    @Req() req: Request,
-    @Res({ passthrough: true }) res: Response,
-  ) {
-    return this.authService.refresh(req, res);
+  @Get('test')
+  @UseGuards(JwtGuard)
+  async test(@Request() req) {
+    return req.user;
   }
 
-  @Post('logout')
-  logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    this.authService.logout(req, res);
-    return { message: 'log out successfully' };
-  }
+  // @HttpCode(200)
+  // @Post('refresh')
+  // async refresh(
+  //   @Req() req: Request,
+  //   @Res({ passthrough: true }) res: Response,
+  // ) {
+  //   return this.authService.refresh(req, res);
+  // }
+
+  // @Post('logout')
+  // logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+  //   this.authService.logout(req, res);
+  //   return { message: 'log out successfully' };
+  // }
 
 }

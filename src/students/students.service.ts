@@ -65,7 +65,7 @@ export class StudentsService extends AbstracService {
 
   async updateOneStudent(uuid: string, updateStudentDto: UpdateStudentDto) {
     const oneStudent = await this.findOneStudent(uuid);
-    const id = oneStudent.personId;
+    const id = oneStudent.id;
     const student = await this.studentRepo.preload({ id, ...updateStudentDto });
     await this.personService.update(uuid, updateStudentDto);
     const updateStudent = await this.studentRepo.save(student);
@@ -77,8 +77,11 @@ export class StudentsService extends AbstracService {
 
   async removeOneStudent(uuid: string) {
     const student = await this.findOneStudent(uuid, ['person']);
-    await this.studentRepo.remove(student);
-    await this.personService.remove(student.uuid);
-    return student;
-  }
+    const delStudent = await this.studentRepo.remove(student);
+    if (delStudent) {
+      await this.personService.remove(student.person.uuid);
+      return student;
+    }
+    }
+   
 }

@@ -48,9 +48,11 @@ let TeachersService = class TeachersService extends abstract_service_1.AbstracSe
     }
     async removeOneTeacher(uuid) {
         const teacher = await this.findOneTeacher(uuid, ['person']);
-        await this.teacherRepo.remove(teacher);
-        await this.personService.remove(teacher.uuid);
-        return teacher;
+        const delTeacher = await this.teacherRepo.remove(teacher);
+        if (delTeacher) {
+            await this.personService.remove(teacher.person.uuid);
+            return teacher;
+        }
     }
 };
 TeachersService = __decorate([

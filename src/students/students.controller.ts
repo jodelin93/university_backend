@@ -1,4 +1,4 @@
-import { JwtAuthGuard } from 'src/auth/jwtguard';
+
 import {
   Controller,
   Get,
@@ -9,7 +9,7 @@ import {
   Delete,
   ParseIntPipe,
   Query,
-  UseGuards,
+  HttpCode,
 } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
@@ -29,7 +29,7 @@ import {
 @ApiTags('Students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
-
+  @HttpCode(200)
   @Post()
   @ApiOperation({ description: 'this is the endpoint for Creating  a student' })
   @ApiCreatedResponse({
@@ -39,7 +39,6 @@ export class StudentsController {
   create(@Body() createStudentDto: CreateStudentDto) {
     return this.studentsService.create(createStudentDto);
   }
-
   @Get()
   @ApiOperation({
     description: 'this is the endpoint for retrieving all  students',

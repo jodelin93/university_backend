@@ -34,27 +34,27 @@ let AuthService = class AuthService {
         this.jwtService = jwtService;
         this.tokenService = tokenService;
     }
-    async login(createAuthDto, res) {
-        const person = await this.personService.findOnePersonByEmail(createAuthDto.identifiant);
-        const user = await this.userService.findOneUserByUsername(createAuthDto.identifiant);
-        if (!person && !user) {
-            throw new common_1.BadRequestException('bad credentials');
+    async validateUser(username, password) {
+        const user = await this.userService.findOneUserByUsername(username);
+        if (!user) {
+            return null;
         }
-        const isMatch = await bcrypt.compare(createAuthDto.password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            throw new common_1.BadRequestException('bad credentials');
+            return null;
         }
-        const access_token = await this.jwtService.signAsync({ id: user.id }, { expiresIn: '30s' });
-        const refreshToken = await this.jwtService.signAsync({ id: user.id });
+        return user;
+    }
+    async login(user, res) {
+        const payload = { username: user.username, sub: user.id };
+        const refreshToken = this.jwtService.sign(payload);
+        const access_token = this.jwtService.sign(payload);
         res.cookie('refresh_token', refreshToken, {
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
-        res.cookie('authenticated', true, {
-            httpOnly: true,
-            maxAge: 24 * 60 * 60 * 1000,
-        });
         let expire_date = new Date();
+        expire_date.setDate(expire_date.getDate() + 7);
         expire_date.setDate(expire_date.getDate() + 7);
         await this.tokenService.saveToken({
             user_id: user.id,

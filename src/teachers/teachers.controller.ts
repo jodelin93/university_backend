@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   ParseIntPipe,
+  HttpCode,
 } from '@nestjs/common';
 import { TeachersService } from './teachers.service';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
@@ -27,8 +28,9 @@ import {
 @ApiForbiddenResponse({ description: 'Forbidden' })
 @ApiTags('Teachers')
 export class TeachersController {
-  constructor(private readonly teachersService: TeachersService) {}
-
+  constructor(private readonly teachersService: TeachersService) { }
+  
+  @HttpCode(200)
   @Post()
   @ApiOperation({ description: 'this is the endpoint for Creating  a teacher' })
   @ApiCreatedResponse({

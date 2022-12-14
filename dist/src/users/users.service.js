@@ -62,7 +62,7 @@ let UsersService = class UsersService extends abstract_service_1.AbstracService 
         return super.findOne({ personId: person.id }, relations);
     }
     async findOneUserByUsername(username) {
-        return await this.userRepo.findOne({ where: { username } });
+        return await this.userRepo.findOne({ where: { username }, relations: ['person', 'role'] });
     }
     async updateRoleStudent(uuid, updateUserRoleDto) {
         const oneUser = await this.findOneUser(uuid);
@@ -79,9 +79,11 @@ let UsersService = class UsersService extends abstract_service_1.AbstracService 
     }
     async removeOneUser(uuid) {
         const student = await this.findOneUser(uuid, ['person']);
-        await this.userRepo.remove(student);
-        await this.personService.remove(student.uuid);
-        return student;
+        const delUser = await this.userRepo.remove(student);
+        if (delUser) {
+            await this.personService.remove(student.person.uuid);
+            return student;
+        }
     }
 };
 UsersService = __decorate([

@@ -16,7 +16,7 @@ class CreateAuthDto {
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateAuthDto.prototype, "identifiant", void 0);
+], CreateAuthDto.prototype, "username", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)

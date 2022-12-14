@@ -70,7 +70,7 @@ let StudentsService = class StudentsService extends abstract_service_1.AbstracSe
     }
     async updateOneStudent(uuid, updateStudentDto) {
         const oneStudent = await this.findOneStudent(uuid);
-        const id = oneStudent.personId;
+        const id = oneStudent.id;
         const student = await this.studentRepo.preload(Object.assign({ id }, updateStudentDto));
         await this.personService.update(uuid, updateStudentDto);
         const updateStudent = await this.studentRepo.save(student);
@@ -81,9 +81,11 @@ let StudentsService = class StudentsService extends abstract_service_1.AbstracSe
     }
     async removeOneStudent(uuid) {
         const student = await this.findOneStudent(uuid, ['person']);
-        await this.studentRepo.remove(student);
-        await this.personService.remove(student.uuid);
-        return student;
+        const delStudent = await this.studentRepo.remove(student);
+        if (delStudent) {
+            await this.personService.remove(student.person.uuid);
+            return student;
+        }
     }
 };
 StudentsService = __decorate([
