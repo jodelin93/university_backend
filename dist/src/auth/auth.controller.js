@@ -24,11 +24,11 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    async create(req) {
+    async create(createAuthDto, req) {
         return await this.authService.login(req.user);
     }
     async user(req) {
-        return this.authService.user(req);
+        return this.authService.user(req.user);
     }
     async test(req) {
         return req.user;
@@ -51,9 +51,10 @@ __decorate([
     (0, common_1.Post)('login'),
     (0, common_2.SetMetadata)(public_decorator_1.IS_PUBLIC_KEY, true),
     (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
-    __param(0, (0, common_1.Request)()),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [create_auth_dto_1.CreateAuthDto, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "create", null);
 __decorate([
@@ -94,6 +95,7 @@ __decorate([
 ], AuthController.prototype, "logout", null);
 AuthController = __decorate([
     (0, common_1.Controller)('auth'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiTags)('Auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);

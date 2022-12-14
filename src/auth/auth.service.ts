@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { UsersService } from './../users/users.service';
 import { PersonsService } from 'src/persons/persons.service';
 import { Injectable, HttpException } from '@nestjs/common';
@@ -30,7 +31,7 @@ export class AuthService {
     
     const payload = { username: user.username, sub: user.id };
     const refreshToken =  await this.jwtService.signAsync(payload,{expiresIn:'7d'});
-    const access_token = await this.jwtService.signAsync(payload,{expiresIn:'30s'})
+    const access_token = await this.jwtService.signAsync(payload,{expiresIn:'7d'})
     
     //   res.cookie('refresh_token', refreshToken, {
     //   httpOnly: true,
@@ -53,21 +54,16 @@ export class AuthService {
   }
 
 
-  async user(req: Request) {
-    
-    const access_token = req.headers.authorization.replace('Bearer ', '');
-    if (!access_token) {
-      return
+  async user(user: any) {
+    const savedUser = await this.userService.findOneById(user.id);
+    if (savedUser) {
+      return savedUser;
+    } else {
+      throw new NotFoundException('user not found')
     }
-    
-    try {
-          const { id } = await this.jwtService.verify(access_token);
-      const { password, ...data } = await this.userService.findOneById(id);
-     
-      return data;
-    } catch (error) {
-      throw new HttpException('Not authorized Request',401);
-    }
+
+      
+   
   }
   async refresh(req: Request, res: Response) {
     const refresh_token = req.cookies['refresh_token'];

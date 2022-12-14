@@ -137,6 +137,7 @@ __decorate([
 ], EmployeesController.prototype, "remove", null);
 EmployeesController = __decorate([
     (0, swagger_1.ApiTags)('Employees'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('employees'),
     __metadata("design:paramtypes", [employees_service_1.EmployeesService])
 ], EmployeesController);

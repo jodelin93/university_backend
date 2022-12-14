@@ -14,16 +14,7 @@ export declare class AuthService {
     login(user: any): Promise<{
         access_token: string;
     }>;
-    user(req: Request): Promise<{
-        id: number;
-        username: string;
-        isActive: boolean;
-        personId: number;
-        createdAt: Date;
-        updatedAt: Date;
-        person: import("../persons/entities/person.entity").Person;
-        role: import("../users/entities/roles.entity").Roles;
-    }>;
+    user(user: any): Promise<User>;
     refresh(req: Request, res: Response): Promise<string>;
     logout(req: Request, res: Response): Promise<void>;
 }

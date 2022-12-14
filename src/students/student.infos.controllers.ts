@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiBody,
   ApiCreatedResponse,
   ApiForbiddenResponse,
@@ -22,7 +23,7 @@ import {
 import { CreateStudentInfoDto } from './dto/create-infos-students.dto';
 import { UpdateStudentInfoDto } from './dto/update-infos.student.dto';
 import { StudentInfoService } from './student.infos.service';
-
+@ApiBearerAuth()
 @Controller('student/infos')
 @ApiTags('Student infos complementaires')
 

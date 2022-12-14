@@ -15,6 +15,7 @@ const students_module_1 = require("./students/students.module");
 const teachers_module_1 = require("./teachers/teachers.module");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
+const common_module_1 = require("./commons/common.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -33,7 +34,7 @@ AppModule = __decorate([
                 synchronize: true,
             }),
             employees_module_1.EmployeesModule,
-            students_module_1.StudentsModule, teachers_module_1.TeachersModule, users_module_1.UsersModule, auth_module_1.AuthModule,
+            students_module_1.StudentsModule, teachers_module_1.TeachersModule, users_module_1.UsersModule, auth_module_1.AuthModule, common_module_1.CommonModule
         ],
         controllers: [],
         providers: [],

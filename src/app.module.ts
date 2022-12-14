@@ -7,6 +7,7 @@ import { StudentsModule } from './students/students.module';
 import { TeachersModule } from './teachers/teachers.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { CommonModule } from './commons/common.module';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true,
     }),
     EmployeesModule,
-    StudentsModule,TeachersModule,UsersModule, AuthModule, 
+    StudentsModule,TeachersModule,UsersModule, AuthModule,CommonModule 
   ],
   controllers: [],
   providers: [],

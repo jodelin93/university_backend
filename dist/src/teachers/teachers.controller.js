@@ -123,6 +123,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TeachersController.prototype, "remove", null);
 TeachersController = __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('teachers'),
     (0, swagger_1.ApiTags)('Teachers'),
     __metadata("design:paramtypes", [teachers_service_1.TeachersService])

@@ -1,12 +1,13 @@
-import { Controller,Post, Res,Req, Get,Request, UseInterceptors, ClassSerializerInterceptor, UseGuards} from '@nestjs/common';
+import { Controller,Post, Res,Req, Get,Request, UseInterceptors, ClassSerializerInterceptor, UseGuards, Body} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { SetMetadata } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LocalAuthGuard } from './local-auth-guard';
 import { IS_PUBLIC_KEY } from './public.decorator';
 
 @Controller('auth')
+@ApiBearerAuth()
   @ApiTags('Auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -20,7 +21,7 @@ export class AuthController {
   @Post('login')
   @SetMetadata(IS_PUBLIC_KEY,true)
   @UseInterceptors(ClassSerializerInterceptor)
-  async create(@Request() req) {
+  async create(@Body() createAuthDto: CreateAuthDto,@Request() req) {
     return await this.authService.login(req.user);
   }
   @ApiOperation({ description: 'this is the endpoint for having user authenticated' })
@@ -31,7 +32,7 @@ export class AuthController {
 
   @Get('user')
   async user(@Request() req) {
-    return this.authService.user(req);
+    return this.authService.user(req.user);
   }
 
   

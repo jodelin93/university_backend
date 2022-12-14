@@ -125,6 +125,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], StudentInfoController.prototype, "remove", null);
 StudentInfoController = __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('student/infos'),
     (0, swagger_1.ApiTags)('Student infos complementaires'),
     __metadata("design:paramtypes", [student_infos_service_1.StudentInfoService])

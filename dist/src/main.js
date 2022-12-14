@@ -34,6 +34,7 @@ async function bootstrap() {
     FORBIDEN RESOURCE :401
     `)
         .setVersion('1.0')
+        .addBearerAuth()
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('api', app, document);

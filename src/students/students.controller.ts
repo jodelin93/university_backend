@@ -15,6 +15,7 @@ import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiNotFoundResponse,
@@ -23,6 +24,8 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+
+@ApiBearerAuth()
 @Controller('students')
 
 @ApiTags('Students')
