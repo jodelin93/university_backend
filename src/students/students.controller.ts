@@ -9,7 +9,6 @@ import {
   Delete,
   ParseIntPipe,
   Query,
-  HttpCode,
 } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
@@ -18,18 +17,17 @@ import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiNotFoundResponse,
   ApiOperation,
   ApiParam,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 @Controller('students')
-@ApiBadRequestResponse({ status: 400, description: 'bad request response' })
-@ApiForbiddenResponse({ description: 'Forbidden' })
+
 @ApiTags('Students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
-  @HttpCode(200)
   @Post()
   @ApiOperation({ description: 'this is the endpoint for Creating  a student' })
   @ApiCreatedResponse({

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { PaginateResult } from "./paginate-result.interface";
 
@@ -11,7 +11,7 @@ export abstract class AbstracService {
     }
 
     async find( relations = []): Promise<any[]>{
-        return await this.repository.find({relations});
+        return await this.repository.find({relations,order:{createdAt:'desc'}});
     }
 
     async findAll(page:number , relations = []): Promise<PaginateResult> {
@@ -22,7 +22,7 @@ export abstract class AbstracService {
         const [data, total] = await this.repository.findAndCount({
           take,
           skip: (page - 1) * take,
-          relations
+          relations,order:{createdAt:'desc'}
         });
     
         return {
@@ -50,7 +50,7 @@ export abstract class AbstracService {
         });
     
         if (!data) {
-            throw new BadRequestException(`data not found`)
+            throw new NotFoundException(`data not found`)
         }
     
         return data;
@@ -59,7 +59,7 @@ export abstract class AbstracService {
     async update(id: number, data:any): Promise<any> {
         const findData = await this.findOne({ id });
         if (!findData) {
-            throw new BadRequestException(`data not found`)
+            throw new NotFoundException(`data not found`)
         }
     
         const convertData = Object.assign(findData, data);
@@ -71,7 +71,7 @@ export abstract class AbstracService {
     async remove(id: number): Promise<any> {
         const data = await this.findOne({ id });
         if (!data) {
-            throw new BadRequestException(`data not found`)
+            throw new NotFoundException(`data not found`)
         }
     
         await this.repository.delete(id);

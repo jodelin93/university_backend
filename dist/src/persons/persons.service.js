@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PersonsService = void 0;
 const common_1 = require("@nestjs/common");
+const common_2 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const person_entity_1 = require("./entities/person.entity");
@@ -22,7 +23,12 @@ let PersonsService = class PersonsService {
         this.personRepo = personRepo;
     }
     async create(createPersonDto) {
-        return await this.personRepo.save(createPersonDto);
+        try {
+            return await this.personRepo.save(createPersonDto);
+        }
+        catch (error) {
+            throw new common_2.BadRequestException(error);
+        }
     }
     async findOnePersonByEmail(email) {
         return await this.personRepo.findOne({ where: { email } });
@@ -30,14 +36,14 @@ let PersonsService = class PersonsService {
     async findOne(uuid) {
         const person = await this.personRepo.findOne({ where: { uuid } });
         if (!person) {
-            throw new common_1.BadRequestException(`person with id ${uuid} does not found`);
+            throw new common_1.NotFoundException(`person with id ${uuid} does not found`);
         }
         return person;
     }
     async update(uuid, updatePersonDto) {
         const onePerson = await this.findOne(uuid);
         if (!onePerson) {
-            throw new common_1.BadRequestException(`person with id ${uuid} does not found`);
+            throw new common_1.NotFoundException(`person with id ${uuid} does not found`);
         }
         const id = onePerson.id;
         const person = await this.personRepo.preload(Object.assign({ id }, updatePersonDto));
@@ -49,7 +55,7 @@ let PersonsService = class PersonsService {
     }
 };
 PersonsService = __decorate([
-    (0, common_1.Injectable)(),
+    (0, common_2.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(person_entity_1.Person)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
 ], PersonsService);

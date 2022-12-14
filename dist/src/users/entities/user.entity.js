@@ -41,12 +41,20 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "personId", void 0);
 __decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], User.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)(),
+    __metadata("design:type", Date)
+], User.prototype, "updatedAt", void 0);
+__decorate([
     (0, typeorm_1.OneToOne)(() => person_entity_1.Person),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", person_entity_1.Person)
 ], User.prototype, "person", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => roles_entity_1.Roles, roles => roles.user, { cascade: true }),
+    (0, typeorm_1.ManyToOne)(() => roles_entity_1.Roles, (roles) => roles.user, { cascade: true }),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", roles_entity_1.Roles)
 ], User.prototype, "role", void 0);

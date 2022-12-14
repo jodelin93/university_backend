@@ -45,14 +45,10 @@ let AuthService = class AuthService {
         }
         return user;
     }
-    async login(user, res) {
+    async login(user) {
         const payload = { username: user.username, sub: user.id };
-        const refreshToken = this.jwtService.sign(payload);
-        const access_token = this.jwtService.sign(payload);
-        res.cookie('refresh_token', refreshToken, {
-            httpOnly: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-        });
+        const refreshToken = await this.jwtService.signAsync(payload, { expiresIn: '7d' });
+        const access_token = await this.jwtService.signAsync(payload, { expiresIn: '30s' });
         let expire_date = new Date();
         expire_date.setDate(expire_date.getDate() + 7);
         expire_date.setDate(expire_date.getDate() + 7);
@@ -66,29 +62,35 @@ let AuthService = class AuthService {
         };
     }
     async user(req) {
-        const access_token = req.headers.authorization.replace('Bearer', '');
+        const access_token = req.headers.authorization.replace('Bearer ', '');
+        if (!access_token) {
+            return;
+        }
         try {
             const { id } = await this.jwtService.verify(access_token);
             const _a = await this.userService.findOneById(id), { password } = _a, data = __rest(_a, ["password"]);
             return data;
         }
         catch (error) {
-            throw new common_1.BadRequestException('Not authorized');
+            throw new common_1.HttpException('Not authorized Request', 401);
         }
     }
     async refresh(req, res) {
         const refresh_token = req.cookies['refresh_token'];
+        if (!refresh_token) {
+            return;
+        }
         try {
             const { id } = await this.jwtService.verify(refresh_token);
             const tokenEntity = await this.tokenService.findOneTOken(id);
             if (!tokenEntity) {
-                throw new common_1.BadRequestException('Not authorized Request');
+                throw new common_1.HttpException('Not authorized Request', 401);
             }
             const access_token = await this.jwtService.signAsync({ id }, { expiresIn: '30s' });
             return `${access_token}`;
         }
         catch (error) {
-            throw new common_1.BadRequestException('Not authorized Request');
+            throw new common_1.HttpException('Not authorized Request', 401);
         }
     }
     async logout(req, res) {

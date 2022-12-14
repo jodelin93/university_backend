@@ -23,7 +23,7 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true,
     }),
     EmployeesModule,
-    StudentsModule,TeachersModule,UsersModule, AuthModule
+    StudentsModule,TeachersModule,UsersModule, AuthModule, 
   ],
   controllers: [],
   providers: [],

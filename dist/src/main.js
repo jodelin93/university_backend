@@ -25,7 +25,14 @@ async function bootstrap() {
     app.useGlobalFilters(new typeorm_exception_1.TypeOrmFilter());
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Api for the backend university ')
-        .setDescription('this api is designed for the backend university ')
+        .setDescription(`
+    this api is designed for the backend university 
+    CREATED RESSOURCE: 201
+    RETRIEVE RESOURCE: 200
+    NOT FOUND RESOURCE:404
+    BAD REQUEST :      400
+    FORBIDEN RESOURCE :401
+    `)
         .setVersion('1.0')
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);

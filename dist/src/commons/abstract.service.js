@@ -20,7 +20,7 @@ let AbstracService = class AbstracService {
         return await this.repository.save(data);
     }
     async find(relations = []) {
-        return await this.repository.find({ relations });
+        return await this.repository.find({ relations, order: { createdAt: 'desc' } });
     }
     async findAll(page, relations = []) {
         const take = 15;
@@ -30,7 +30,7 @@ let AbstracService = class AbstracService {
         const [data, total] = await this.repository.findAndCount({
             take,
             skip: (page - 1) * take,
-            relations
+            relations, order: { createdAt: 'desc' }
         });
         return {
             data,
@@ -50,14 +50,14 @@ let AbstracService = class AbstracService {
             relations,
         });
         if (!data) {
-            throw new common_1.BadRequestException(`data not found`);
+            throw new common_1.NotFoundException(`data not found`);
         }
         return data;
     }
     async update(id, data) {
         const findData = await this.findOne({ id });
         if (!findData) {
-            throw new common_1.BadRequestException(`data not found`);
+            throw new common_1.NotFoundException(`data not found`);
         }
         const convertData = Object.assign(findData, data);
         await this.repository.update(id, data);
@@ -66,7 +66,7 @@ let AbstracService = class AbstracService {
     async remove(id) {
         const data = await this.findOne({ id });
         if (!data) {
-            throw new common_1.BadRequestException(`data not found`);
+            throw new common_1.NotFoundException(`data not found`);
         }
         await this.repository.delete(id);
         return data;

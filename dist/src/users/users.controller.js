@@ -43,7 +43,6 @@ let UsersController = class UsersController {
 };
 __decorate([
     (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
-    (0, common_1.HttpCode)(200),
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ description: 'this is the endpoint for Creating  a user' }),
     (0, swagger_1.ApiCreatedResponse)({
@@ -133,8 +132,6 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "remove", null);
 UsersController = __decorate([
-    (0, swagger_1.ApiBadRequestResponse)({ status: 400, description: 'bad request response' }),
-    (0, swagger_1.ApiForbiddenResponse)({ description: 'Forbidden' }),
     (0, swagger_1.ApiTags)('Users'),
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

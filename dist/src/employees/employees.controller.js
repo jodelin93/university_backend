@@ -42,10 +42,14 @@ let EmployeesController = class EmployeesController {
     }
 };
 __decorate([
-    (0, common_1.HttpCode)(200),
     (0, common_1.Post)(),
-    (0, swagger_1.ApiOperation)({ description: "this is the endpoint for Creating  an employee" }),
-    (0, swagger_1.ApiCreatedResponse)({ description: 'The record has been successfully created.', type: create_employee_dto_1.CreateEmployeeDto }),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for Creating  an employee',
+    }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: 'The record has been successfully created.',
+        type: create_employee_dto_1.CreateEmployeeDto,
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_employee_dto_1.CreateEmployeeDto]),
@@ -53,8 +57,14 @@ __decorate([
 ], EmployeesController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, swagger_1.ApiOperation)({ description: "this is the endpoint for retrieving all the employees" }),
-    (0, swagger_1.ApiResponse)({ type: create_employee_dto_1.CreateEmployeeDto, description: 'Operation pour recupperer toutes les personnes', isArray: true }),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for retrieving all the employees',
+    }),
+    (0, swagger_1.ApiResponse)({
+        type: create_employee_dto_1.CreateEmployeeDto,
+        description: 'Operation pour recupperer toutes les personnes',
+        isArray: true,
+    }),
     __param(0, (0, common_1.Query)('page', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
@@ -79,10 +89,12 @@ __decorate([
     (0, swagger_1.ApiParam)({
         name: 'uuid',
         type: 'string',
-        description: 'uuid employe'
+        description: 'uuid employe',
     }),
     (0, swagger_1.ApiResponse)({ type: create_employee_dto_1.CreateEmployeeDto }),
-    (0, swagger_1.ApiOperation)({ description: "this is the endpoint for retrieving  one employee" }),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for retrieving  one employee',
+    }),
     __param(0, (0, common_1.Param)('uuid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -93,10 +105,15 @@ __decorate([
     (0, swagger_1.ApiParam)({
         name: 'uuid',
         type: 'string',
-        description: 'uuid employe'
+        description: 'uuid employe',
     }),
-    (0, swagger_1.ApiCreatedResponse)({ description: 'The record has been successfully updated.', type: create_employee_dto_1.CreateEmployeeDto }),
-    (0, swagger_1.ApiOperation)({ description: "this is the endpoint for updating  an employee" }),
+    (0, swagger_1.ApiCreatedResponse)({
+        description: 'The record has been successfully updated.',
+        type: create_employee_dto_1.CreateEmployeeDto,
+    }),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for updating  an employee',
+    }),
     __param(0, (0, common_1.Param)('uuid')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -108,17 +125,17 @@ __decorate([
     (0, swagger_1.ApiParam)({
         name: 'uuid',
         type: 'string',
-        description: 'uuid employe'
+        description: 'uuid employe',
     }),
-    (0, swagger_1.ApiOperation)({ description: "this is the endpoint for deleting  one employee" }),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for deleting  one employee',
+    }),
     __param(0, (0, common_1.Param)('uuid')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], EmployeesController.prototype, "remove", null);
 EmployeesController = __decorate([
-    (0, swagger_1.ApiBadRequestResponse)({ status: 400, description: 'bad request response' }),
-    (0, swagger_1.ApiForbiddenResponse)({ description: 'Forbidden' }),
     (0, swagger_1.ApiTags)('Employees'),
     (0, common_1.Controller)('employees'),
     __metadata("design:paramtypes", [employees_service_1.EmployeesService])

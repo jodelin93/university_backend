@@ -16,21 +16,29 @@ exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const create_auth_dto_1 = require("./dto/create-auth.dto");
+const common_2 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const local_auth_guard_1 = require("./local-auth-guard");
-const jwt_guard_1 = require("./jwt-guard");
+const public_decorator_1 = require("./public.decorator");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    create(req, res) {
-        return this.authService.login(req.user, res);
+    async create(req) {
+        return await this.authService.login(req.user);
     }
     async user(req) {
         return this.authService.user(req);
     }
     async test(req) {
         return req.user;
+    }
+    async refresh(req, res) {
+        return this.authService.refresh(req, res);
+    }
+    logout(req, res) {
+        this.authService.logout(req, res);
+        return { message: 'log out successfully' };
     }
 };
 __decorate([
@@ -40,14 +48,13 @@ __decorate([
         type: create_auth_dto_1.CreateAuthDto,
     }),
     (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
-    (0, common_1.HttpCode)(200),
     (0, common_1.Post)('login'),
+    (0, common_2.SetMetadata)(public_decorator_1.IS_PUBLIC_KEY, true),
     (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
     __param(0, (0, common_1.Request)()),
-    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "create", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ description: 'this is the endpoint for having user authenticated' }),
@@ -63,16 +70,30 @@ __decorate([
 ], AuthController.prototype, "user", null);
 __decorate([
     (0, common_1.Get)('test'),
-    (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
-    __param(0, (0, common_1.Request)()),
+    (0, common_2.SetMetadata)(public_decorator_1.IS_PUBLIC_KEY, true),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "test", null);
+__decorate([
+    (0, common_1.Post)('refresh'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "refresh", null);
+__decorate([
+    (0, common_1.Post)('logout'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "logout", null);
 AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    (0, swagger_1.ApiBadRequestResponse)({ status: 400, description: 'bad request response' }),
-    (0, swagger_1.ApiForbiddenResponse)({ description: 'Forbidden' }),
     (0, swagger_1.ApiTags)('Auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);

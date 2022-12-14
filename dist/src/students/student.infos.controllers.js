@@ -39,7 +39,6 @@ let StudentInfoController = class StudentInfoController {
     }
 };
 __decorate([
-    (0, common_1.HttpCode)(200),
     (0, common_1.Post)(':id'),
     (0, swagger_1.ApiParam)({
         name: 'id',
@@ -128,8 +127,6 @@ __decorate([
 StudentInfoController = __decorate([
     (0, common_1.Controller)('student/infos'),
     (0, swagger_1.ApiTags)('Student infos complementaires'),
-    (0, swagger_1.ApiBadRequestResponse)({ status: 400, description: 'bad request response' }),
-    (0, swagger_1.ApiForbiddenResponse)({ description: 'Forbidden' }),
     __metadata("design:paramtypes", [student_infos_service_1.StudentInfoService])
 ], StudentInfoController);
 exports.StudentInfoController = StudentInfoController;

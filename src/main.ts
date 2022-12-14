@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { TypeOrmFilter } from './exceptions/typeorm.exception';
 import * as CookParser from 'cookie-parser'
+import { JwtGuard } from './auth/jwt-guard';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(CookParser())
@@ -23,11 +24,19 @@ async function bootstrap() {
       forbidUnknownValues: true,
     }),
   );
+
   app.useGlobalFilters(new TypeOrmFilter())
   
   const config = new DocumentBuilder()
     .setTitle('Api for the backend university ')
-    .setDescription('this api is designed for the backend university ')
+    .setDescription(`
+    this api is designed for the backend university 
+    CREATED RESSOURCE: 201
+    RETRIEVE RESOURCE: 200
+    NOT FOUND RESOURCE:404
+    BAD REQUEST :      400
+    FORBIDEN RESOURCE :401
+    `)
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

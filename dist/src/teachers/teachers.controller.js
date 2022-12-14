@@ -42,7 +42,6 @@ let TeachersController = class TeachersController {
     }
 };
 __decorate([
-    (0, common_1.HttpCode)(200),
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ description: 'this is the endpoint for Creating  a teacher' }),
     (0, swagger_1.ApiCreatedResponse)({
@@ -125,8 +124,6 @@ __decorate([
 ], TeachersController.prototype, "remove", null);
 TeachersController = __decorate([
     (0, common_1.Controller)('teachers'),
-    (0, swagger_1.ApiBadRequestResponse)({ status: 400, description: 'bad request response' }),
-    (0, swagger_1.ApiForbiddenResponse)({ description: 'Forbidden' }),
     (0, swagger_1.ApiTags)('Teachers'),
     __metadata("design:paramtypes", [teachers_service_1.TeachersService])
 ], TeachersController);

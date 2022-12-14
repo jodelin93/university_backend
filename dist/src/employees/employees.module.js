@@ -17,7 +17,7 @@ let EmployeesModule = class EmployeesModule {
 };
 EmployeesModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([employee_entity_1.Employee]), persons_module_1.PersonsModule],
+        imports: [typeorm_1.TypeOrmModule.forFeature([employee_entity_1.Employee]), persons_module_1.PersonsModule,],
         controllers: [employees_controller_1.EmployeesController],
         providers: [employees_service_1.EmployeesService],
     })

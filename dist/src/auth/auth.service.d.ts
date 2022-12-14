@@ -11,7 +11,7 @@ export declare class AuthService {
     private readonly tokenService;
     constructor(personService: PersonsService, userService: UsersService, jwtService: JwtService, tokenService: TokenService);
     validateUser(username: string, password: string): Promise<User>;
-    login(user: any, res: Response): Promise<{
+    login(user: any): Promise<{
         access_token: string;
     }>;
     user(req: Request): Promise<{
@@ -19,6 +19,8 @@ export declare class AuthService {
         username: string;
         isActive: boolean;
         personId: number;
+        createdAt: Date;
+        updatedAt: Date;
         person: import("../persons/entities/person.entity").Person;
         role: import("../users/entities/roles.entity").Roles;
     }>;

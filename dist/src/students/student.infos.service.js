@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StudentInfoService = void 0;
 const common_1 = require("@nestjs/common");
+const common_2 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const abstract_service_1 = require("../commons/abstract.service");
 const typeorm_2 = require("typeorm");
@@ -49,7 +50,7 @@ let StudentInfoService = class StudentInfoService extends abstract_service_1.Abs
     async updateinfoStudent(id, data) {
         const findData = await this.findOne({ studentId: id });
         if (!findData) {
-            throw new common_1.BadRequestException(`data not found`);
+            throw new common_1.NotFoundException(`data not found`);
         }
         const convertData = Object.assign(findData, data);
         await this.studentInfoRepo.update(id, data);
@@ -57,7 +58,7 @@ let StudentInfoService = class StudentInfoService extends abstract_service_1.Abs
     }
 };
 StudentInfoService = __decorate([
-    (0, common_1.Injectable)(),
+    (0, common_2.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(student_infos_entity_1.StudentInformationsCompementaires)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         students_service_1.StudentsService])

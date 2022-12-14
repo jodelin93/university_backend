@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -11,33 +12,37 @@ export class PersonsService {
     @InjectRepository(Person) private personRepo: Repository<Person>,
   ) {}
   async create(createPersonDto: CreatePersonDto) {
-    return await this.personRepo.save(createPersonDto);
+    try {
+      return await this.personRepo.save(createPersonDto);
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
 
- async  findOnePersonByEmail(email:string) {
-    return await this.personRepo.findOne({where:{email}})
+  async findOnePersonByEmail(email: string) {
+    return await this.personRepo.findOne({ where: { email } });
   }
 
   async findOne(uuid: string) {
-    const person = await this.personRepo.findOne({ where: { uuid } })
+    const person = await this.personRepo.findOne({ where: { uuid } });
     if (!person) {
-      throw new BadRequestException(`person with id ${uuid} does not found`)
+      throw new NotFoundException(`person with id ${uuid} does not found`);
     }
-    return person ;
+    return person;
   }
 
   async update(uuid: string, updatePersonDto: UpdatePersonDto) {
-    const onePerson = await this.findOne(uuid)
+    const onePerson = await this.findOne(uuid);
     if (!onePerson) {
-      throw new BadRequestException(`person with id ${uuid} does not found`)
+      throw new NotFoundException(`person with id ${uuid} does not found`);
     }
     const id = onePerson.id;
-    const person=await this.personRepo.preload({id , ...updatePersonDto })
-    return await this.personRepo.save(person)
+    const person = await this.personRepo.preload({ id, ...updatePersonDto });
+    return await this.personRepo.save(person);
   }
 
   async remove(uuid: string) {
-    const person= await this.findOne(uuid)
-    await this.personRepo.remove(person)
+    const person = await this.findOne(uuid);
+    await this.personRepo.remove(person);
   }
 }

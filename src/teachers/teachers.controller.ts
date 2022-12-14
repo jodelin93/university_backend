@@ -17,6 +17,7 @@ import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiNotFoundResponse,
   ApiOperation,
   ApiParam,
   ApiResponse,
@@ -24,13 +25,10 @@ import {
 } from '@nestjs/swagger';
 
 @Controller('teachers')
-@ApiBadRequestResponse({ status: 400, description: 'bad request response' })
-@ApiForbiddenResponse({ description: 'Forbidden' })
 @ApiTags('Teachers')
 export class TeachersController {
   constructor(private readonly teachersService: TeachersService) { }
-  
-  @HttpCode(200)
+
   @Post()
   @ApiOperation({ description: 'this is the endpoint for Creating  a teacher' })
   @ApiCreatedResponse({

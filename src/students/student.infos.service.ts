@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AbstracService } from 'src/commons/abstract.service';
@@ -43,7 +44,7 @@ export class StudentInfoService extends AbstracService {
     async updateinfoStudent(id: number, data:any): Promise<any> {
         const findData = await this.findOne({ studentId:id });
         if (!findData) {
-            throw new BadRequestException(`data not found`)
+            throw new NotFoundException(`data not found`)
         }
     
         const convertData = Object.assign(findData, data);

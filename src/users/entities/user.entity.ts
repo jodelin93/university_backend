@@ -1,34 +1,49 @@
-import { Exclude } from "class-transformer";
-import { Person } from "src/persons/entities/person.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
-import { Roles } from "./roles.entity";
+import { Exclude } from 'class-transformer';
+import { Person } from 'src/persons/entities/person.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Roles } from './roles.entity';
 
 @Entity()
 export class User {
-    constructor(partial: Partial<User>) {
-        Object.assign(this, partial);
-      }
-    @PrimaryGeneratedColumn()
-    id: number;
+  constructor(partial: Partial<User>) {
+    Object.assign(this, partial);
+  }
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({unique:true})
-    username: string;
+  @Column({ unique: true })
+  username: string;
 
-    @Column()
-    @Exclude()
-    password: string;
+  @Column()
+  @Exclude()
+  password: string;
 
-    @Column({default:0})
-    isActive: boolean;
+  @Column({ default: 0 })
+  isActive: boolean;
 
-    @Column()
-    personId: number;
+  @Column()
+  personId: number;
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @OneToOne(() => Person)
-    @JoinColumn()
-    person: Person;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-    @ManyToOne(() => Roles, roles=>roles.user,{cascade:true})
-    @JoinColumn()
-    role: Roles;
- }
+  @OneToOne(() => Person)
+  @JoinColumn()
+  person: Person;
+
+  @ManyToOne(() => Roles, (roles) => roles.user, { cascade: true })
+  @JoinColumn()
+  role: Roles;
+}

@@ -23,6 +23,14 @@ __decorate([
     __metadata("design:type", String)
 ], Roles.prototype, "role_name", void 0);
 __decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], Roles.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)(),
+    __metadata("design:type", Date)
+], Roles.prototype, "updatedAt", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => user_entity_1.User, user => user.role),
     __metadata("design:type", user_entity_1.User)
 ], Roles.prototype, "user", void 0);

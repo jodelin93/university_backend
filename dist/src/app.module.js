@@ -33,7 +33,7 @@ AppModule = __decorate([
                 synchronize: true,
             }),
             employees_module_1.EmployeesModule,
-            students_module_1.StudentsModule, teachers_module_1.TeachersModule, users_module_1.UsersModule, auth_module_1.AuthModule
+            students_module_1.StudentsModule, teachers_module_1.TeachersModule, users_module_1.UsersModule, auth_module_1.AuthModule,
         ],
         controllers: [],
         providers: [],
