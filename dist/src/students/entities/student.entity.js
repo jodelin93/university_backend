@@ -69,7 +69,7 @@ __decorate([
     __metadata("design:type", person_entity_1.Person)
 ], Student.prototype, "person", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => student_infos_entity_1.StudentInformationsCompementaires, studentinfo => studentinfo.student, { cascade: true }),
+    (0, typeorm_1.OneToOne)(() => student_infos_entity_1.StudentInformationsCompementaires, studentinfo => studentinfo.student),
     __metadata("design:type", student_infos_entity_1.StudentInformationsCompementaires)
 ], Student.prototype, "studentinfos", void 0);
 Student = __decorate([

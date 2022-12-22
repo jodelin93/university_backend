@@ -39,7 +39,7 @@ export class StudentInformationsCompementaires{
     @Column()
     studentId: number;
 
-    @OneToOne(() => Student,student=>student.studentinfos)
+    @OneToOne(() => Student,student=>student.studentinfos,{onDelete:'CASCADE'})
     @JoinColumn()
     student: Student;
 

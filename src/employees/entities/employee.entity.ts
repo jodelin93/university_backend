@@ -29,7 +29,7 @@ export class Employee {
   @Column()
   personId: number;
 
-  @OneToOne(() => Person,{cascade:true})
+  @OneToOne(() => Person,)
   @JoinColumn()
   person: Person;
 }

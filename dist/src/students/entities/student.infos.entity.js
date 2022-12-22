@@ -63,7 +63,7 @@ __decorate([
     __metadata("design:type", Number)
 ], StudentInformationsCompementaires.prototype, "studentId", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => student_entity_1.Student, student => student.studentinfos),
+    (0, typeorm_1.OneToOne)(() => student_entity_1.Student, student => student.studentinfos, { onDelete: 'CASCADE' }),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", student_entity_1.Student)
 ], StudentInformationsCompementaires.prototype, "student", void 0);
