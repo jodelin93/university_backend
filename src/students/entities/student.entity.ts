@@ -44,7 +44,7 @@ export class Student {
     @JoinColumn()
     person: Person;
 
-    @OneToOne(() => StudentInformationsCompementaires,studentinfo=>studentinfo.student)
+    @OneToOne(() => StudentInformationsCompementaires,studentinfo=>studentinfo.student,{cascade:true})
     studentinfos: StudentInformationsCompementaires;
 
 }

@@ -25,17 +25,8 @@ let StudentInfoController = class StudentInfoController {
     async create(id, createStudentInfoDto) {
         return this.studentInfoService.createinfoStudent(id, createStudentInfoDto);
     }
-    findOne(id) {
-        return this.studentInfoService.findOne(id);
-    }
-    async find() {
-        return await this.studentInfoService.findAll(1, []);
-    }
     async update(id, updateStudentInfoDto) {
         return this.studentInfoService.updateinfoStudent(id, updateStudentInfoDto);
-    }
-    remove(id) {
-        return this.studentInfoService.remove(id);
     }
 };
 __decorate([
@@ -63,28 +54,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], StudentInfoController.prototype, "create", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    (0, swagger_1.ApiParam)({
-        name: 'id',
-        type: 'number',
-        description: 'id etudiant'
-    }),
-    (0, swagger_1.ApiResponse)({ type: create_infos_students_dto_1.CreateStudentInfoDto }),
-    (0, swagger_1.ApiOperation)({
-        description: 'this is the endpoint for retrieving  one student infos',
-    }),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
-], StudentInfoController.prototype, "findOne", null);
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], StudentInfoController.prototype, "find", null);
-__decorate([
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiParam)({
         name: 'id',
@@ -109,21 +78,6 @@ __decorate([
     __metadata("design:paramtypes", [Number, update_infos_student_dto_1.UpdateStudentInfoDto]),
     __metadata("design:returntype", Promise)
 ], StudentInfoController.prototype, "update", null);
-__decorate([
-    (0, common_1.Delete)(':id'),
-    (0, swagger_1.ApiParam)({
-        name: 'id',
-        type: 'number',
-        description: 'id etudiant'
-    }),
-    (0, swagger_1.ApiOperation)({
-        description: 'this is the endpoint for deleting  one student infos',
-    }),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
-], StudentInfoController.prototype, "remove", null);
 StudentInfoController = __decorate([
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('student/infos'),

@@ -43,7 +43,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Employee.prototype, "personId", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => person_entity_1.Person),
+    (0, typeorm_1.OneToOne)(() => person_entity_1.Person, { cascade: true }),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", person_entity_1.Person)
 ], Employee.prototype, "person", void 0);

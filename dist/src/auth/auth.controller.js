@@ -63,6 +63,7 @@ __decorate([
         description: 'The record has been successfully created.',
         type: create_auth_dto_1.CreateAuthDto,
     }),
+    (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
     (0, common_1.Get)('user'),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),

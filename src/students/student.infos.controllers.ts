@@ -1,23 +1,17 @@
 import {
   Body,
   Controller,
-  Delete,
-  Get,
   Param,
   ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
 import {
-  ApiBadRequestResponse,
   ApiBearerAuth,
   ApiBody,
   ApiCreatedResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
   ApiOperation,
   ApiParam,
-  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { CreateStudentInfoDto } from './dto/create-infos-students.dto';
@@ -53,25 +47,7 @@ export class StudentInfoController {
     return this.studentInfoService.createinfoStudent(id, createStudentInfoDto);
     }
     
-  @Get(':id')
-  @ApiParam({
-    name: 'id',
-      type: 'number',
-    description:'id etudiant'
-  }) 
-  @ApiResponse({ type: CreateStudentInfoDto })
-  @ApiOperation({
-    description: 'this is the endpoint for retrieving  one student infos',
-  })
-  findOne(@Param('id',ParseIntPipe) id: number) {
-    return this.studentInfoService.findOne(id);
-  }
-
-  @Get()
-  async find() {
-    return await this.studentInfoService.findAll(1, []);
-  }
-
+ 
   @Patch(':id')
   @ApiParam({
     name: 'id',
@@ -98,16 +74,5 @@ export class StudentInfoController {
     return this.studentInfoService.updateinfoStudent(id, updateStudentInfoDto);
     }
     
-  @Delete(':id')
-  @ApiParam({
-    name: 'id',
-      type: 'number',
-    description:'id etudiant'
-  }) 
-    @ApiOperation({
-      description: 'this is the endpoint for deleting  one student infos',
-    })
-    remove(@Param('id') id: number) {
-      return this.studentInfoService.remove(id);
-    }
+  
 }

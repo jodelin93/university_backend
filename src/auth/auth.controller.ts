@@ -29,7 +29,7 @@ export class AuthController {
     description: 'The record has been successfully created.',
     type: CreateAuthDto,
   })
-
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('user')
   async user(@Request() req) {
     return this.authService.user(req.user);
