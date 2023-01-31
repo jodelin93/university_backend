@@ -11,7 +11,7 @@ async function bootstrap() {
     app.use(CookParser());
     app.enableCors({
         origin: [
-            'https://app.ujeph.edu.ht/'
+            'https://app.ujeph.edu.ht/', 'https://app.ujeph.edu.ht'
         ],
         methods: ["GET", "POST", "PATCH", 'DELETE'],
         credentials: true,
