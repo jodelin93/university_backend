@@ -1,13 +1,5 @@
-import { Person } from 'src/persons/entities/person.entity';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import {Person} from 'src/persons/entities/person.entity';
+import {Column,CreateDateColumn,Entity,JoinColumn,OneToOne,PrimaryGeneratedColumn,UpdateDateColumn} from 'typeorm';
 @Entity()
 export class Employee {
   @PrimaryGeneratedColumn() id: number;

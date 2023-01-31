@@ -1,5 +1,5 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Student } from "./student.entity";
+import { Column,Entity,JoinColumn,OneToOne,PrimaryGeneratedColumn} from "typeorm";
+import {Student} from "./student.entity";
 
 @Entity()
 export class StudentInformationsCompementaires{

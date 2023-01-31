@@ -1,3 +1,4 @@
-import { DataSource } from "typeorm";
-declare const AppDataSource: DataSource;
-export default AppDataSource;
+import { DataSource, DataSourceOptions } from "typeorm";
+export declare const datasourceOptions: DataSourceOptions;
+declare const dateSource: DataSource;
+export default dateSource;

@@ -1,14 +1,4 @@
-import { Employee } from './../../employees/entities/employee.entity';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  Generated,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-import { Student } from 'src/students/entities/student.entity';
+import {Column,CreateDateColumn,Entity,Generated,PrimaryGeneratedColumn,UpdateDateColumn} from 'typeorm';
 
 export enum Sexe {
   MASCULIN = 'masculin',

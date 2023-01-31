@@ -14,14 +14,13 @@ import { CommonModule } from './commons/common.module';
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: process.env.DATABASE_HOST_PROD,
       port: +process.env.DATABASE_PORT,
       username: process.env.DATABASE_USER_PROD,
       password: process.env.DATABASE_PASSWORD_PROD,
       database: process.env.DATABASE_NAME_PROD,
       logging: false,
-      autoLoadEntities: true,
-      synchronize: true,
+      autoLoadEntities: true
     }),
     EmployeesModule,
     StudentsModule,TeachersModule,UsersModule, AuthModule,CommonModule 
