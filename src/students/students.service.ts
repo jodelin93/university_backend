@@ -2,17 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AbstracService } from 'src/commons/abstract.service';
 import { PersonsService } from 'src/persons/persons.service';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { Student } from './entities/student.entity';
 import { faker } from '@faker-js/faker';
+import { Person } from 'src/persons/entities/person.entity';
 
 @Injectable()
 export class StudentsService extends AbstracService {
   constructor(
     private personService: PersonsService,
     @InjectRepository(Student) private studentRepo: Repository<Student>,
+
   ) {
     super(studentRepo);
   }
@@ -43,6 +45,8 @@ export class StudentsService extends AbstracService {
     return await this.studentRepo.findOneBy({ id });
   }
 
+
+
   async create(createStudentDto: CreateStudentDto) {
     const student = this.studentRepo.create(createStudentDto);
     const person = await this.personService.create(createStudentDto);
@@ -62,6 +66,14 @@ export class StudentsService extends AbstracService {
     const person = await this.personService.findOne(uuid);
     return super.findOne({ personId: person.id }, relations);
   }
+
+  async search(data: any): Promise<any[]>{
+    return await this.studentRepo.query("select * from person inner join student on person.id=student.personId where code like '%"+data+"%' or nom like '%"+data+"%' or prenom like '%"+data+"%' ");
+    
+
+
+    
+}
 
   async updateOneStudent(uuid: string, updateStudentDto: UpdateStudentDto) {
     const oneStudent = await this.findOneStudent(uuid);

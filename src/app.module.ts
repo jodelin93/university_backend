@@ -8,6 +8,7 @@ import { TeachersModule } from './teachers/teachers.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CommonModule } from './commons/common.module';
+import { FaculteModule } from './faculte/faculte.module';
 
 @Module({
   imports: [
@@ -20,10 +21,12 @@ import { CommonModule } from './commons/common.module';
       password: process.env.DATABASE_PASSWORD_PROD,
       database: process.env.DATABASE_NAME_PROD,
       logging: false,
-      autoLoadEntities: true
+      autoLoadEntities: true,
+    
+      
     }),
     EmployeesModule,
-    StudentsModule,TeachersModule,UsersModule, AuthModule,CommonModule 
+    StudentsModule,TeachersModule,UsersModule, AuthModule,CommonModule, FaculteModule 
   ],
   controllers: [],
   providers: [],

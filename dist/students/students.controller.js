@@ -43,6 +43,9 @@ let StudentsController = class StudentsController {
     remove(uuid) {
         return this.studentsService.removeOneStudent(uuid);
     }
+    search(data) {
+        return this.studentsService.search(data);
+    }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -134,6 +137,21 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], StudentsController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Get)('/search/:data'),
+    (0, swagger_1.ApiParam)({
+        name: 'data',
+        type: 'string',
+        description: 'data to filter upon'
+    }),
+    (0, swagger_1.ApiOperation)({
+        description: 'this is the endpoint for searching data',
+    }),
+    __param(0, (0, common_1.Param)('data')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], StudentsController.prototype, "search", null);
 StudentsController = __decorate([
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('students'),

@@ -113,4 +113,16 @@ export class StudentsController {
   remove(@Param('uuid') uuid: string) {
     return this.studentsService.removeOneStudent(uuid);
   }
+  @Get('/search/:data')
+  @ApiParam({
+    name: 'data',
+      type: 'string',
+    description:'data to filter upon'
+  })
+  @ApiOperation({
+    description: 'this is the endpoint for searching data',
+  })
+  search(@Param('data') data: string) {
+    return this.studentsService.search(data);
+  }
 }

@@ -56,6 +56,7 @@ let AbstracService = class AbstracService {
     }
     async update(id, data) {
         const findData = await this.findOne({ id });
+        console.log(findData);
         if (!findData) {
             throw new common_1.NotFoundException(`data not found`);
         }

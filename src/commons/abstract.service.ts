@@ -57,7 +57,9 @@ export abstract class AbstracService {
     }
     
     async update(id: number, data:any): Promise<any> {
-        const findData = await this.findOne({ id });
+      const findData = await this.findOne({ id });
+      console.log(findData);
+      
         if (!findData) {
             throw new NotFoundException(`data not found`)
         }

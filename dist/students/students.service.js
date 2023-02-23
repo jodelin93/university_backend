@@ -68,6 +68,9 @@ let StudentsService = class StudentsService extends abstract_service_1.AbstracSe
         const person = await this.personService.findOne(uuid);
         return super.findOne({ personId: person.id }, relations);
     }
+    async search(data) {
+        return await this.studentRepo.query("select * from person inner join student on person.id=student.personId where code like '%" + data + "%' or nom like '%" + data + "%' or prenom like '%" + data + "%' ");
+    }
     async updateOneStudent(uuid, updateStudentDto) {
         const oneStudent = await this.findOneStudent(uuid);
         const id = oneStudent.id;

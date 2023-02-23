@@ -10,4 +10,5 @@ export declare class StudentsController {
     findOne(uuid: string): Promise<any>;
     update(uuid: string, updateStudentDto: UpdateStudentDto): Promise<import("./entities/student.entity").Student>;
     remove(uuid: string): Promise<any>;
+    search(data: string): Promise<any[]>;
 }
