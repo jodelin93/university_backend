@@ -32,6 +32,7 @@ AppModule = __decorate([
                 database: process.env.DATABASE_NAME_PROD,
                 logging: false,
                 autoLoadEntities: true,
+                synchronize: true
             }),
             employees_module_1.EmployeesModule,
             students_module_1.StudentsModule, teachers_module_1.TeachersModule, users_module_1.UsersModule, auth_module_1.AuthModule, common_module_1.CommonModule, faculte_module_1.FaculteModule

@@ -22,7 +22,7 @@ import { FaculteModule } from './faculte/faculte.module';
       database: process.env.DATABASE_NAME_PROD,
       logging: false,
       autoLoadEntities: true,
-    
+      synchronize:true
       
     }),
     EmployeesModule,
