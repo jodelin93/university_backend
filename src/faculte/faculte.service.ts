@@ -2,7 +2,6 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AbstracService } from 'src/commons/abstract.service';
 import { Repository } from 'typeorm';
-import { CreateFaculteDto } from './dto/create-faculte.dto';
 import { UpdateFaculteDto } from './dto/update-faculte.dto';
 import { Faculte } from './entities/faculte.entity';
 

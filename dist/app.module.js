@@ -25,7 +25,7 @@ AppModule = __decorate([
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
-                host: process.env.DATABASE_HOST,
+                host: 'localhost',
                 port: +process.env.DATABASE_PORT,
                 username: process.env.DATABASE_USER_PROD,
                 password: process.env.DATABASE_PASSWORD_PROD,
