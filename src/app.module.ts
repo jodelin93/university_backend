@@ -15,11 +15,11 @@ import { FaculteModule } from './faculte/faculte.module';
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: +process.env.DATABASE_PORT,
-      username: process.env.DATABASE_USER_PROD,
-      password: process.env.DATABASE_PASSWORD_PROD,
-      database: process.env.DATABASE_NAME_PROD,
+      host: 'loclhost',
+      port: 3306,
+      username: 'jodelind_backend',
+      password: 'universitybackend',
+      database: 'jodelind_university_backend_prod',
       logging: false,
       autoLoadEntities: true,
       synchronize:true
